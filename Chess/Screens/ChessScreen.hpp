@@ -17,6 +17,7 @@
 #include "Window.hpp"
 #include "Font.hpp"
 #include "Handler.hpp"
+#include "Chess.hpp"
 
 class ChessScreen
 {
@@ -50,6 +51,10 @@ class ChessScreen
         SDL_Renderer* renderer_ = nullptr;
         //TTF font
         Font* font_ = nullptr;
+        // CellTexture container
+        CellTexture* cellTexture_ = nullptr;
+        // Chess game
+        Chess* chess_ = nullptr;
     
         // List of Handlers (event tracker)
         std::queue<Handler> handlerQueue_;

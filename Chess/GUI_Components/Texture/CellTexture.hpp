@@ -16,33 +16,31 @@
 #include <iostream>
 #include <string>
 
-class Texture
+class CellTexture
 {
 public:
+    enum Piece{PIECE_KING, PIECE_PAWN, PIECE_ROOK, PIECE_QUEEN, PIECE_KNIGHT, PIECE_BISHOP, PIECE_LEGALMOVE, PIECE_EMPTY};
+    
     //Initializes variables
-    Texture( SDL_Renderer* renderer);
-    Texture( SDL_Renderer* renderer, TTF_Font* font);
+    CellTexture( SDL_Renderer* renderer, int cellWidth, int cellHeight);
     
     //Deallocates memory
-    ~Texture();
+    ~CellTexture();
     
     //Loads image at specified path
     bool loadFromFile( std::string path , bool hasColorkey=false, uint8_t red = 0xFF, uint8_t green = 0xFF, uint8_t blue = 0xFF);
     
-    // Loads texture from Text
-    bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
-    
     //Renders texture at given point
-    void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
+    void render( int x, int y, CellTexture::Piece pieceType);
+    
     
     // Set Texture Properties
     void setBlendMode( SDL_BlendMode blending );
     void setAlpha( Uint8 alpha );
     void setColor( Uint8 red, Uint8 green, Uint8 blue );
     
-    //Getters image dimensions
-    int getWidth(){     return mWidth;  };
-    int getHeight(){    return mHeight; };
+    // set render dimensions
+    void setDimensions( int width, int height);
     
     //Deallocates texture
     void free();
@@ -52,11 +50,13 @@ private:
     SDL_Texture* mTexture_;
     
     SDL_Renderer* renderer_=nullptr;
-    TTF_Font* font_ = NULL;
 
-    //Image dimensions
-    int mWidth;
-    int mHeight;
+    const static int imageNo_ = 7;
+    SDL_Rect gSpriteClips[imageNo_];
+    
+    //cell dimensions
+    int cellWidth_;
+    int cellHeight_;
 };
 
 

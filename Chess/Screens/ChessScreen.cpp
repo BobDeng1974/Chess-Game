@@ -76,9 +76,11 @@ bool ChessScreen::init()
     font_->createSizedFont(16);
     font_->createSizedFont(12);
     
-    // Loads save file
-    saveFile_ = new SaveFile("Saved/saved.bin");
-    if(!saveFile_->readFile()) success = false;
+    cellTexture_ = new CellTexture(renderer_, 80,80);
+    if(!cellTexture_->loadFromFile("Images/pieces.png")){
+        std::cerr << " Failed to load pieces\n";
+        success = false;
+    }
     
     if( success){
         //Initiate Buttons
@@ -86,14 +88,56 @@ bool ChessScreen::init()
             std::cerr << "Failed to load Buttons\n";
             success = false;
         }
-        // Create text
-        pickingText_ = new Texture(renderer_,font_->getFont(24));
-        pickingText_->loadFromRenderedText("Choose the difficulty:", textColor_);
         
-        // Create sudoku
-        sudoku_ = new Sudoku( renderer_, font_->getFont(28), windowWidth_,windowHeight_);
-        hasInitiated=true;
+        // Create Chess
+        chess_ = new Chess(renderer_, cellTexture_, windowWidth_, windowHeight_);
+        hasInitiated = true;
     }
     
     return success;
 }
+
+// Load all buttons
+bool ChessScreen::loadButtons(){
+    
+    return true;
+}
+
+
+// Process all handlers
+bool ChessScreen::processHandlers()
+{
+    bool success = false;
+    
+    while( !handlerQueue_.empty()){
+        Handler handler = handlerQueue_.front();
+        handlerQueue_.pop();
+        
+        switch (handler.getEvent())
+        {
+            case Handler::EVENT_INPUT:
+                break;
+            case Handler::EVENT_IGNORE:
+                break;
+        }
+    }
+    return success;
+}
+
+// Render screen
+void ChessScreen::render()
+{
+    // Clear window
+    window_->clearScreen();
+    
+    // Render Elements
+    chess_->render();
+    
+    // Render options buttons
+    
+    // Update Screen
+    window_->updateScreen();
+}
+
+
+
