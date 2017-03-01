@@ -36,7 +36,8 @@ void ChessScreen::start()
                 quit = true;
             }
             else{
-                    // TODO input handling
+                handlerQueue_.push(chess_->handleEvent(&e))
+                ;
             }
         }
         
@@ -116,7 +117,9 @@ bool ChessScreen::processHandlers()
         switch (handler.getEvent())
         {
             case Handler::EVENT_INPUT:
+                success = true;
                 break;
+                
             case Handler::EVENT_IGNORE:
                 break;
         }

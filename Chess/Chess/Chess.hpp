@@ -17,45 +17,50 @@
 
 class Chess
 {
-public:
-    Chess(SDL_Renderer* renderer, CellTexture* font,  int screenWidth, int screenHeight);
+    public:
+        Chess(SDL_Renderer* renderer, CellTexture* font,  int screenWidth, int screenHeight);
 
-    // Handle event on sudoku board
-    Handler handleEvent( SDL_Event* e );
+        // Handle event on sudoku board
+        Handler handleEvent( SDL_Event* e );
+        
+        // Renders the board
+        void render();
+        
+        // Reset board
+        void reset(bool eraseAll);
     
-    // Renders the board
-    void render();
-    
-    // Reset board
-    void reset(bool eraseAll);
-private:
-    // Board thick line size
-    static const int thickLineSize=4;
-    
-    // Sudoku Screen Position
-    int xOffset_;
-    int yOffset_;
-    int boardWidth_;
-    int boardHeight_;
-    int cellSize_;
+    private:
+        // Board thick line size
+        static const int thickLineSize=4;
+        
+        // Sudoku Screen Position
+        int xOffset_;
+        int yOffset_;
+        int boardWidth_;
+        int boardHeight_;
+        int cellSize_;
 
-    // SDL variables
-    SDL_Renderer* renderer_ = nullptr;
-    CellTexture* cellTexture_ = nullptr;
-    
-    // Number of Cells per line
-    const static int horizontalCellNo = 8;
-    const static int verticalCellNo = 8;
+        // SDL variables
+        SDL_Renderer* renderer_ = nullptr;
+        CellTexture* cellTexture_ = nullptr;
+        
+        // Number of Cells per line
+        const static int horizontalCellNo = 8;
+        const static int verticalCellNo = 8;
 
-    // Pointer to clicked cell
-    Cell *focusedCell = nullptr;
+        // Pointer to clicked cell
+        Cell *focusedCell = nullptr;
+        CellTexture::Piece focusedPiece_;
+        SDL_Point mousePosition;
     
-    std::vector<Cell> board_;
+        std::vector<Cell> board_;
     
-    // Creates the board (all cells)
-    void createBoard();
-    // Puts pieces onto the board (initial state)
-    void initiatePieces();
+    
+    
+        // Creates the board (all cells)
+        void createBoard();
+        // Puts pieces onto the board (initial state)
+        void initiatePieces();
 
 };
 

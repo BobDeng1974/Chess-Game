@@ -77,7 +77,7 @@ void Chess::initiatePieces(){
         
         board_[row + i].setClicable(true);
     }
-    row+=horizontalCellNo;
+    row-=horizontalCellNo;
     //Set Players pawns
     for (int i=0; i<horizontalCellNo; i++){
         board_[row + i].setType(CellTexture::PIECE_PAWN);
@@ -95,6 +95,9 @@ void Chess::render()
         }
     }
     
+    if(focusedCell!=nullptr){
+        cellTexture_->render(mousePosition.x - cellSize_/2, mousePosition.y- cellSize_/2 , focusedPiece_);
+    }
     
     SDL_SetRenderDrawColor( renderer_, 0x00, 0x00, 0x00, 0xFF );
     
@@ -103,3 +106,52 @@ void Chess::render()
     SDL_RenderDrawRect( renderer_, &outlineRect );
  
 }
+
+Handler Chess::handleEvent(SDL_Event *e)
+{
+    // return Handler
+    Handler handler(Handler::EVENT_IGNORE);
+    
+    //If mouse event happened
+    if( e->type == SDL_MOUSEBUTTONDOWN)
+    {
+        int row=0, col=0;
+        bool inside = false;
+        for (int i=0; i<horizontalCellNo; i++){
+            for (int j=0; j<verticalCellNo; j++){
+                if( (inside= board_[ (i*9)+j].handleEvent(e)) ){
+                    row = i;
+                    col = j;
+                    i=9;
+                    j=9;
+                }
+            }
+        }
+        
+        //Mouse clicked inside cell
+        if(inside){
+            if( board_[(row*9)+col].getType() != CellTexture::PIECE_EMPTY){
+                focusedCell = &board_[(row*9)+col];
+                focusedPiece_ = focusedCell->getType();
+                focusedCell->setType(CellTexture::PIECE_EMPTY);
+                handler.setEvent(Handler::EVENT_INPUT);
+                SDL_GetMouseState( &mousePosition.x, &mousePosition.y );
+            }
+        }
+    }
+    else if( e->type == SDL_MOUSEMOTION && focusedCell!=nullptr){
+        SDL_GetMouseState( &mousePosition.x, &mousePosition.y );
+        handler.setEvent(Handler::EVENT_INPUT);
+    }
+    else if( e->type == SDL_MOUSEBUTTONUP ) // input events, only affect focused cell
+    {
+        if( focusedCell!=nullptr){
+            handler.setEvent(Handler::EVENT_INPUT);
+            focusedCell->setType(focusedPiece_);
+            focusedCell = nullptr;
+        }
+    }
+    return handler;
+}
+
+

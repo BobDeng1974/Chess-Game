@@ -23,10 +23,16 @@ public:
     // Render Cell
     void render();
     
+    //handle input (mouse clicks)
+    bool handleEvent(SDL_Event* e);
+    
     // Sets the type of the 
     void setType( CellTexture::Piece piecetype);
     void setClicable( bool clickable);
     
+    //Getters
+    CellTexture::Piece getType() const;
+
 private:
     // SDL Variables
     SDL_Renderer* renderer_ =nullptr;

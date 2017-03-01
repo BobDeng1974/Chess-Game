@@ -35,6 +35,45 @@ void Cell::render()
     
 }
 
+bool Cell::handleEvent(SDL_Event *e)
+{
+    if( type_== CellTexture::PIECE_EMPTY && e->type == SDL_MOUSEBUTTONDOWN ) return false;
+    if( type_!= CellTexture::PIECE_LEGALMOVE && e->type == SDL_MOUSEBUTTONUP ) return false;
+
+    //Get mouse position
+    int x, y;
+    SDL_GetMouseState( &x, &y );
+    
+    //Check if mouse is in button
+    bool inside = true;
+    
+    //Mouse is left of the button
+    if( x < anchorPoint_.x )
+    {
+        inside = false;
+    }
+    //Mouse is right of the button
+    else if( x > anchorPoint_.x + size_ )
+    {
+        inside = false;
+    }
+    //Mouse above the button
+    else if( y < anchorPoint_.y )
+    {
+        inside = false;
+    }
+    //Mouse below the button
+    else if( y > anchorPoint_.y + size_ )
+    {
+        inside = false;
+    }
+    return inside;
+}
+
 void Cell::setType( CellTexture::Piece piecetype){ this->type_ = piecetype; }
 
 void Cell::setClicable(bool clickable){ this->isClickable_ = clickable; }
+
+CellTexture::Piece Cell::getType() const { return type_; }
+
+
