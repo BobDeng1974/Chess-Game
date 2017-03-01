@@ -15,19 +15,30 @@
 #include "CellTexture.hpp"
 #include "Handler.hpp"
 
+#include "Pawn.hpp"
+#include "Rook.hpp"
+#include "Knight.hpp"
+#include "Bishop.hpp"
+#include "Queen.hpp"
+#include "King.hpp"
+
 class Chess
 {
     public:
         Chess(SDL_Renderer* renderer, CellTexture* font,  int screenWidth, int screenHeight);
 
         // Handle event on sudoku board
-        Handler handleEvent( SDL_Event* e );
+        virtual Handler handleEvent( SDL_Event* e );
         
         // Renders the board
-        void render();
+        virtual void render();
         
         // Reset board
-        void reset(bool eraseAll);
+        //virtual void reset(bool eraseAll);
+    
+    protected:
+        virtual void updatePossibleMoves();
+
     
     private:
         // Board thick line size
@@ -50,7 +61,7 @@ class Chess
 
         // Pointer to clicked cell
         Cell *focusedCell = nullptr;
-        CellTexture::Piece focusedPiece_;
+        Piece* focusedPiece_ = nullptr;
         SDL_Point mousePosition;
     
         std::vector<Cell> board_;
@@ -61,6 +72,12 @@ class Chess
         void createBoard();
         // Puts pieces onto the board (initial state)
         void initiatePieces();
+    
+        void logger( SDL_Point src, SDL_Point dest, bool isPlayer );
+        void rookValidMoves(int row, int col);
+        void knightValidMoves(int row, int col);
+        void bishopValidMoves(int row, int col);
+
 
 };
 

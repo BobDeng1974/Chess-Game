@@ -15,10 +15,10 @@ Cell::Cell(SDL_Renderer* renderer, CellTexture* cellTexture, int x, int y, int s
     this->anchorPoint_.x = x;
     this->anchorPoint_.y = y;
     this->size_ = size;
-    this->row_ = row;
-    this->col_ = col;
-    this->type_ = CellTexture::PIECE_EMPTY;
+    this->boardPosition_.y = row;
+    this->boardPosition_.x = col;
     this->isDark_ = isDark;
+    reset();
 }
 
 void Cell::render()
@@ -30,15 +30,16 @@ void Cell::render()
         :SDL_SetRenderDrawColor( renderer_, 0xEB, 0xD1, 0xA6, 0xFF );   // Cell is light( light orange)
     SDL_RenderFillRect( renderer_, &fillRect );
 
-    // Render piece if not empty
-    if( type_ != CellTexture::PIECE_EMPTY)cellTexture_->render(anchorPoint_.x, anchorPoint_.y, type_);
+    if(isLegal_) cellTexture_->render(anchorPoint_.x, anchorPoint_.y, CellTexture::PIECE_LEGALMOVE );
     
+    // Render piece if not empty
+    if( piece_!=nullptr) cellTexture_->render(anchorPoint_.x, anchorPoint_.y, piece_->getType() );
 }
 
 bool Cell::handleEvent(SDL_Event *e)
 {
-    if( type_== CellTexture::PIECE_EMPTY && e->type == SDL_MOUSEBUTTONDOWN ) return false;
-    if( type_!= CellTexture::PIECE_LEGALMOVE && e->type == SDL_MOUSEBUTTONUP ) return false;
+    if( piece_ == nullptr && e->type == SDL_MOUSEBUTTONDOWN ) return false;
+    //if( !isLegal_ && e->type == SDL_MOUSEBUTTONUP ) return false;
 
     //Get mouse position
     int x, y;
@@ -70,10 +71,29 @@ bool Cell::handleEvent(SDL_Event *e)
     return inside;
 }
 
-void Cell::setType( CellTexture::Piece piecetype){ this->type_ = piecetype; }
+void Cell::reset()
+{
+    if( this->piece_ != nullptr){
+        delete piece_;
+        this->piece_ = nullptr;
+    }
+    this->isLegal_ = false;
+    this->isClicked_ = false;
+}
 
-void Cell::setClicable(bool clickable){ this->isClickable_ = clickable; }
+void Cell::deletePiece()
+{
+    if( piece_!= nullptr){
+        delete piece_;
+        piece_=nullptr;
+    }
+}
 
-CellTexture::Piece Cell::getType() const { return type_; }
+void Cell::setPiece(Piece* piece) { this->piece_ = piece; }
+void Cell::setClicked(bool clicked){ this->isClicked_ = clicked; }
+void Cell::setLegalMove(bool isLegal){ this->isLegal_ = isLegal; }
 
+Piece* Cell::getPiece() const { return piece_; }
+bool Cell::isLegalMove() const { return isLegal_; }
+SDL_Point Cell::getPosition() const { return boardPosition_; }
 

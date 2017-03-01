@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include "CellTexture.hpp"
+#include "Piece.hpp"
 
 class Cell
 {
@@ -26,12 +27,21 @@ public:
     //handle input (mouse clicks)
     bool handleEvent(SDL_Event* e);
     
-    // Sets the type of the 
-    void setType( CellTexture::Piece piecetype);
-    void setClicable( bool clickable);
+    // Reset initial state
+    virtual void reset();
+
+    // Deletes its associated Piece
+    void deletePiece();
     
+    // Sets the type of the
+    void setPiece( Piece* piece);
+    void setClicked( bool clicked);
+    void setLegalMove(bool isLegal);
+
     //Getters
-    CellTexture::Piece getType() const;
+    Piece* getPiece() const;
+    bool isLegalMove() const;
+    SDL_Point getPosition() const;
 
 private:
     // SDL Variables
@@ -43,12 +53,12 @@ private:
     int size_;
     
     // Board coordinates of the cell
-    int row_;
-    int col_;
+    SDL_Point boardPosition_;
     
     // Indicates what the call contains
-    CellTexture::Piece type_; // if it has a piece
-    bool isDark_; // if it is dark or light colored
-    bool isClickable_; // if it belongs to user or opponent
+    Piece* piece_ = nullptr; // if it has a piece
+    bool isDark_;       // if it is dark or light colored
+    bool isClicked_;  // if it belongs to user or opponent
+    bool isLegal_;      // if cell is a legal move
 };
 #endif /* Cell_hpp */
