@@ -1,35 +1,33 @@
 //
-//  ChessScreen.hpp
+//  LogInScreen.hpp
 //  Chess
 //
-//  Created by Ricardo Martins on 28/02/2017.
+//  Created by Ricardo Martins on 02/03/2017.
 //  Copyright © 2017 Ricardo Martins. All rights reserved.
 //
 
-#ifndef ChessScreen_hpp
-#define ChessScreen_hpp
+#ifndef LogInScreen_hpp
+#define LogInScreen_hpp
 
-
-#include <SDL2/SDL.h>
-#include <SDL2_ttf/SDL_ttf.h>
+#include <iostream>
 #include <queue>
 
-#include "Window.hpp"
+#include "Screen.hpp"
 #include "Font.hpp"
 #include "Handler.hpp"
-#include "Chess.hpp"
+#include 
 
-class ChessScreen
+class LogInScreen : public Screen
 {
     public:
-        ChessScreen(int windowWidth, int windowHeight);
-        
+        LogInScreen(int windowWidth, int windowHeight, std::string windowName);
+    
         // Initialize Screen
         bool init();
-        
+    
         // Start Screen Functions
         void start();
-
+    
     protected:
         // Load Screen Buttons
         virtual bool loadButtons();
@@ -39,28 +37,16 @@ class ChessScreen
         
         // Render screen
         virtual void render();
-        
+    
     private:
-        // Screen Size
-        int windowWidth_;
-        int windowHeight_;
-        
-        // Window variable
-        Window* window_=nullptr;
-        // Screen Renderer
-        SDL_Renderer* renderer_ = nullptr;
         //TTF font
         Font* font_ = nullptr;
-    
-        // CellTexture container
-        CellTexture* cellTexture_ = nullptr;
-        // Chess game
-        Chess* chess_ = nullptr;
-    
+
         // List of Handlers (event tracker)
         std::queue<Handler> handlerQueue_;
-
+    
         bool hasInitiated_ = false;   // Bool indicates if initiated correctly
+
 };
 
-#endif /* ChessScreen_hpp */
+#endif /* LogInScreen_hpp */

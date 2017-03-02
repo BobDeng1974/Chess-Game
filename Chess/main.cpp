@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "ChessScreen.hpp"
+#include "Communication.hpp"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -17,6 +18,7 @@ const int SCREEN_HEIGHT = 480;
 
 int main(int argc, const char * argv[])
 {
+    
     bool success = false;
     
     // Init SDL

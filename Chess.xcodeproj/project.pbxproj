@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72A915341E68919200D8E032 /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A915331E68919200D8E032 /* libcurl.4.dylib */; };
+		72A915371E689AAB00D8E032 /* HttpResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915351E689AAB00D8E032 /* HttpResponse.cpp */; };
+		72A9153B1E689C5600D8E032 /* Communication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915391E689C5600D8E032 /* Communication.cpp */; };
+		72A9153E1E68D68500D8E032 /* LogInScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9153C1E68D68500D8E032 /* LogInScreen.cpp */; };
+		72A915411E68D6EB00D8E032 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9153F1E68D6EB00D8E032 /* Screen.cpp */; };
 		72BF1A1C1E659D01006AF761 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A1B1E659D01006AF761 /* main.cpp */; };
 		72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A221E659F4E006AF761 /* ChessScreen.cpp */; };
 		72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BF1A261E659FEB006AF761 /* SDL2_image.framework */; };
@@ -41,6 +46,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		72A915331E68919200D8E032 /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = ../../../../../../../usr/local/lib/libcurl.4.dylib; sourceTree = "<group>"; };
+		72A915351E689AAB00D8E032 /* HttpResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HttpResponse.cpp; path = Communication/HttpResponse.cpp; sourceTree = "<group>"; };
+		72A915361E689AAB00D8E032 /* HttpResponse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HttpResponse.hpp; path = Communication/HttpResponse.hpp; sourceTree = "<group>"; };
+		72A915391E689C5600D8E032 /* Communication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Communication.cpp; path = Communication/Communication.cpp; sourceTree = "<group>"; };
+		72A9153A1E689C5600D8E032 /* Communication.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Communication.hpp; path = Communication/Communication.hpp; sourceTree = "<group>"; };
+		72A9153C1E68D68500D8E032 /* LogInScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LogInScreen.cpp; path = Screens/LogInScreen.cpp; sourceTree = "<group>"; };
+		72A9153D1E68D68500D8E032 /* LogInScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = LogInScreen.hpp; path = Screens/LogInScreen.hpp; sourceTree = "<group>"; };
+		72A9153F1E68D6EB00D8E032 /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Screen.cpp; path = Screens/Screen.cpp; sourceTree = "<group>"; };
+		72A915401E68D6EB00D8E032 /* Screen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Screen.hpp; path = Screens/Screen.hpp; sourceTree = "<group>"; };
 		72BF1A181E659D01006AF761 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF1A1B1E659D01006AF761 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		72BF1A221E659F4E006AF761 /* ChessScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChessScreen.cpp; path = Screens/ChessScreen.cpp; sourceTree = "<group>"; };
@@ -82,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72A915341E68919200D8E032 /* libcurl.4.dylib in Frameworks */,
 				72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */,
 				72BF1A2B1E659FEB006AF761 /* SDL2_mixer.framework in Frameworks */,
 				72BF1A2C1E659FEB006AF761 /* SDL2_ttf.framework in Frameworks */,
@@ -92,6 +107,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		72A915381E689AE700D8E032 /* Communications */ = {
+			isa = PBXGroup;
+			children = (
+				72A915391E689C5600D8E032 /* Communication.cpp */,
+				72A9153A1E689C5600D8E032 /* Communication.hpp */,
+				72A915351E689AAB00D8E032 /* HttpResponse.cpp */,
+				72A915361E689AAB00D8E032 /* HttpResponse.hpp */,
+			);
+			name = Communications;
+			sourceTree = "<group>";
+		};
 		72BF1A0F1E659D01006AF761 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +146,7 @@
 				72BF1A1B1E659D01006AF761 /* main.cpp */,
 				72BF1A491E65D2DF006AF761 /* Chess */,
 				72BF1A4D1E67313C006AF761 /* Pieces */,
+				72A915381E689AE700D8E032 /* Communications */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -127,6 +154,7 @@
 		72BF1A251E659FEB006AF761 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72A915331E68919200D8E032 /* libcurl.4.dylib */,
 				72BF1A261E659FEB006AF761 /* SDL2_image.framework */,
 				72BF1A271E659FEB006AF761 /* SDL2_mixer.framework */,
 				72BF1A281E659FEB006AF761 /* SDL2_ttf.framework */,
@@ -174,8 +202,12 @@
 		72BF1A3F1E65A150006AF761 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				72BF1A231E659F4E006AF761 /* ChessScreen.hpp */,
 				72BF1A221E659F4E006AF761 /* ChessScreen.cpp */,
+				72BF1A231E659F4E006AF761 /* ChessScreen.hpp */,
+				72A9153C1E68D68500D8E032 /* LogInScreen.cpp */,
+				72A9153D1E68D68500D8E032 /* LogInScreen.hpp */,
+				72A9153F1E68D6EB00D8E032 /* Screen.cpp */,
+				72A915401E68D6EB00D8E032 /* Screen.hpp */,
 			);
 			name = Screen;
 			sourceTree = "<group>";
@@ -274,15 +306,19 @@
 				72BF1A451E65AA08006AF761 /* Cell.cpp in Sources */,
 				72BF1A421E65A432006AF761 /* Chess.cpp in Sources */,
 				72BF1A4C1E67307E006AF761 /* Piece.cpp in Sources */,
+				72A9153E1E68D68500D8E032 /* LogInScreen.cpp in Sources */,
+				72A915371E689AAB00D8E032 /* HttpResponse.cpp in Sources */,
 				72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */,
 				72BF1A5D1E673D17006AF761 /* Queen.cpp in Sources */,
 				72BF1A301E65A024006AF761 /* Window.cpp in Sources */,
 				72BF1A391E65A10C006AF761 /* CellTexture.cpp in Sources */,
 				72BF1A601E673D56006AF761 /* King.cpp in Sources */,
+				72A915411E68D6EB00D8E032 /* Screen.cpp in Sources */,
 				72BF1A571E673C76006AF761 /* Knight.cpp in Sources */,
 				72BF1A1C1E659D01006AF761 /* main.cpp in Sources */,
 				72BF1A361E65A103006AF761 /* Handler.cpp in Sources */,
 				72BF1A501E67352F006AF761 /* Pawn.cpp in Sources */,
+				72A9153B1E689C5600D8E032 /* Communication.cpp in Sources */,
 				72BF1A5A1E673CC2006AF761 /* Bishop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,8 +418,11 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/lib,
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -393,8 +432,11 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/usr/local/lib,
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -418,6 +460,7 @@
 				72BF1A211E659D01006AF761 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

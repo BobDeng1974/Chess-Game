@@ -17,8 +17,9 @@ ChessScreen::ChessScreen(int windowWidth, int windowHeight)
 // Screen main function
 void ChessScreen::start()
 {
-    // Initialize elements
-    if( !hasInitiated) return;
+    // Verify if board initiated correctly
+    if( !hasInitiated_) return;
+    // Render Screen
     render();
     
     // User wants to Quit
@@ -92,7 +93,7 @@ bool ChessScreen::init()
         
         // Create Chess
         chess_ = new Chess(renderer_, cellTexture_, windowWidth_, windowHeight_);
-        hasInitiated = true;
+        hasInitiated_ = true;
     }
     
     return success;
@@ -120,7 +121,7 @@ bool ChessScreen::processHandlers()
                 success = true;
                 break;
                 
-            case Handler::EVENT_IGNORE:
+            default:
                 break;
         }
     }
