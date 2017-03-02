@@ -80,8 +80,41 @@ LogInScreen::start()
 bool
 LogInScreen::loadButtons()
 {
-    * newButton;
+    int buttonWidth = windowWidth_/4;
+    int buttonHeight = windowHeight_/5;
+    int windowCenterX = windowWidth_/2;
+    
+    
+    SelectorButton* newButton;
     std::string buttonName;
+
+    
+    
+    // Create User Button
+    buttonName = "Create User";
+    newButton = new SelectorButton(renderer_ ,
+                                   font_->getFont(24),
+                                   windowCenterX - buttonWidth/2 ,  // X
+                                   buttonHeight/2,                  // Y
+                                   buttonWidth,                     // Width
+                                   buttonHeight,                    // Height
+                                   CREATE_USER);                    // Set onClick Value
+    newButton->setText(buttonName);
+    newButton->setCallbackEvent(Handler::EVENT_BUTTONCLICK);
+    listButtons_.push_back(newButton);
+    
+    // Enter as Guest Button
+    buttonName = "Enter as Guest";
+    newButton = new SelectorButton(renderer_ ,
+                                   font_->getFont(24),
+                                   windowCenterX - buttonWidth/2 ,  // X
+                                   buttonHeight/2 + buttonHeight,   // Y
+                                   buttonWidth,                     // Width
+                                   buttonHeight,                    // Height
+                                   ENTER_AS_GUEST);                    // Set onClick Value
+    newButton->setText(buttonName);
+    newButton->setCallbackEvent(Handler::EVENT_BUTTONCLICK);
+    listButtons_.push_back(newButton);
 
     
     return true;

@@ -299,6 +299,8 @@ void Chess::logger(SDL_Point src, SDL_Point dest, bool isPlayer)
         case CellTexture::PIECE_KING:
             std::cout << " King to ";
             break;
+        default:
+            break;
     }
     std::cout << "(" << dest.y << "," << dest.x << ") \n";
 }
