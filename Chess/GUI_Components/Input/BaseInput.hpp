@@ -23,33 +23,37 @@ class BaseInput
         BaseInput(SDL_Renderer* renderer,TTF_Font* font);
         BaseInput(SDL_Renderer* renderer,TTF_Font* font, int x, int y, int width, int height);
     
-        // set 2D position of button
-        void setPosition( int x, int y, int width, int height);
-    
-        // set Input's text
-        void setText(std::string text);
-    
-        // set Text's color
-        void setTextColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
-    
         // handle event on button
         virtual Handler handleEvent( SDL_Event *e) = 0;
-    
+        
         // interface render
         virtual void render();
         
         // reset button to initial state
         virtual void reset();
-        
+    
+        // Setters
+        // set 2D position of button
+        void setPosition( int x, int y, int width, int height);
+        // set Input's text
+        void setText(std::string text);
+        // set Text's color
+        void setTextColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
         // State Setters
         void setVisibility( bool visibility);
         void setClickable( bool clickable);
-        
+        void setPlaceHolder( std::string text, uint8_t alpha);
+    
+        // Getters
+        // Get Text
+        std::string getText() const;
         // Getters of State
         bool isVisible() const;
         bool isClickable() const;
-
-
+        //  Getter for Focused
+        bool isFocused() const;
+    
+    
     protected:
         // button location
         SDL_Point anchorPoint_;
@@ -62,7 +66,8 @@ class BaseInput
         TTF_Font* font_;
         
         // Text Texture
-        Texture* texture_=nullptr;
+        Texture* texture_ = nullptr;
+        Texture* placeHolder_ = nullptr;
     
         // Text
         std::string inputText;
@@ -73,6 +78,9 @@ class BaseInput
         // State Indicators
         bool visible_ = true;
         bool clickable_ = true;
+        bool hasPlaceHolder_ = false;
+        bool focused_ = false;
+
     
         // loads text into texture
         void loadTextTexture(); 

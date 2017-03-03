@@ -18,6 +18,7 @@
 		72A9154E1E68E29500D8E032 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9154C1E68E29500D8E032 /* Texture.cpp */; };
 		72A9155B1E68E56C00D8E032 /* BaseInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915571E68E56C00D8E032 /* BaseInput.cpp */; };
 		72A9155C1E68E56C00D8E032 /* TextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915591E68E56C00D8E032 /* TextInput.cpp */; };
+		72A9155F1E699D3700D8E032 /* CellTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9155D1E699D3700D8E032 /* CellTexture.cpp */; };
 		72BF1A1C1E659D01006AF761 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A1B1E659D01006AF761 /* main.cpp */; };
 		72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A221E659F4E006AF761 /* ChessScreen.cpp */; };
 		72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BF1A261E659FEB006AF761 /* SDL2_image.framework */; };
@@ -27,7 +28,6 @@
 		72BF1A301E65A024006AF761 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A2E1E65A024006AF761 /* Window.cpp */; };
 		72BF1A331E65A0FC006AF761 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A311E65A0FC006AF761 /* Font.cpp */; };
 		72BF1A361E65A103006AF761 /* Handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A341E65A103006AF761 /* Handler.cpp */; };
-		72BF1A391E65A10C006AF761 /* CellTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A371E65A10C006AF761 /* CellTexture.cpp */; };
 		72BF1A421E65A432006AF761 /* Chess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A401E65A432006AF761 /* Chess.cpp */; };
 		72BF1A451E65AA08006AF761 /* Cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A431E65AA08006AF761 /* Cell.cpp */; };
 		72BF1A4C1E67307E006AF761 /* Piece.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A4A1E67307E006AF761 /* Piece.cpp */; };
@@ -73,6 +73,9 @@
 		72A915581E68E56C00D8E032 /* BaseInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseInput.hpp; path = GUI_Components/Input/BaseInput.hpp; sourceTree = "<group>"; };
 		72A915591E68E56C00D8E032 /* TextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextInput.cpp; path = GUI_Components/Input/TextInput.cpp; sourceTree = "<group>"; };
 		72A9155A1E68E56C00D8E032 /* TextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TextInput.hpp; path = GUI_Components/Input/TextInput.hpp; sourceTree = "<group>"; };
+		72A9155D1E699D3700D8E032 /* CellTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CellTexture.cpp; path = GUI_Components/Texture/CellTexture.cpp; sourceTree = "<group>"; };
+		72A9155E1E699D3700D8E032 /* CellTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CellTexture.hpp; path = GUI_Components/Texture/CellTexture.hpp; sourceTree = "<group>"; };
+		72A915601E69B18A00D8E032 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = Communication/json.hpp; sourceTree = "<group>"; };
 		72BF1A181E659D01006AF761 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF1A1B1E659D01006AF761 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		72BF1A221E659F4E006AF761 /* ChessScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChessScreen.cpp; path = Screens/ChessScreen.cpp; sourceTree = "<group>"; };
@@ -87,8 +90,6 @@
 		72BF1A321E65A0FC006AF761 /* Font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Font.hpp; path = GUI_Components/Font/Font.hpp; sourceTree = "<group>"; };
 		72BF1A341E65A103006AF761 /* Handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Handler.cpp; path = GUI_Components/Handler/Handler.cpp; sourceTree = "<group>"; };
 		72BF1A351E65A103006AF761 /* Handler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Handler.hpp; path = GUI_Components/Handler/Handler.hpp; sourceTree = "<group>"; };
-		72BF1A371E65A10C006AF761 /* CellTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CellTexture.cpp; path = GUI_Components/Texture/CellTexture.cpp; sourceTree = "<group>"; };
-		72BF1A381E65A10C006AF761 /* CellTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CellTexture.hpp; path = GUI_Components/Texture/CellTexture.hpp; sourceTree = "<group>"; };
 		72BF1A401E65A432006AF761 /* Chess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Chess.cpp; path = Chess/Chess.cpp; sourceTree = "<group>"; };
 		72BF1A411E65A432006AF761 /* Chess.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Chess.hpp; path = Chess/Chess.hpp; sourceTree = "<group>"; };
 		72BF1A431E65AA08006AF761 /* Cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cell.cpp; path = Chess/Cell.cpp; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 		72A915381E689AE700D8E032 /* Communications */ = {
 			isa = PBXGroup;
 			children = (
+				72A915601E69B18A00D8E032 /* json.hpp */,
 				72A915391E689C5600D8E032 /* Communication.cpp */,
 				72A9153A1E689C5600D8E032 /* Communication.hpp */,
 				72A915351E689AAB00D8E032 /* HttpResponse.cpp */,
@@ -217,10 +219,10 @@
 		72BF1A3A1E65A113006AF761 /* Texture */ = {
 			isa = PBXGroup;
 			children = (
+				72A9155D1E699D3700D8E032 /* CellTexture.cpp */,
+				72A9155E1E699D3700D8E032 /* CellTexture.hpp */,
 				72A9154C1E68E29500D8E032 /* Texture.cpp */,
 				72A9154D1E68E29500D8E032 /* Texture.hpp */,
-				72BF1A371E65A10C006AF761 /* CellTexture.cpp */,
-				72BF1A381E65A10C006AF761 /* CellTexture.hpp */,
 			);
 			name = Texture;
 			sourceTree = "<group>";
@@ -357,6 +359,7 @@
 			files = (
 				72BF1A331E65A0FC006AF761 /* Font.cpp in Sources */,
 				72A915491E68DD8300D8E032 /* RectButton.cpp in Sources */,
+				72A9155F1E699D3700D8E032 /* CellTexture.cpp in Sources */,
 				72BF1A531E673BEE006AF761 /* Rook.cpp in Sources */,
 				72BF1A451E65AA08006AF761 /* Cell.cpp in Sources */,
 				72BF1A421E65A432006AF761 /* Chess.cpp in Sources */,
@@ -369,7 +372,6 @@
 				72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */,
 				72BF1A5D1E673D17006AF761 /* Queen.cpp in Sources */,
 				72BF1A301E65A024006AF761 /* Window.cpp in Sources */,
-				72BF1A391E65A10C006AF761 /* CellTexture.cpp in Sources */,
 				72A9154A1E68DD8300D8E032 /* SelectorButton.cpp in Sources */,
 				72BF1A601E673D56006AF761 /* King.cpp in Sources */,
 				72A915411E68D6EB00D8E032 /* Screen.cpp in Sources */,

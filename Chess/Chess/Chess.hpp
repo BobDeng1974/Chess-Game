@@ -12,8 +12,8 @@
 #include <vector>
 
 #include "Cell.hpp"
-#include "CellTexture.hpp"
 #include "Handler.hpp"
+#include "CellTexture.hpp"
 
 #include "Pawn.hpp"
 #include "Rook.hpp"
@@ -21,6 +21,7 @@
 #include "Bishop.hpp"
 #include "Queen.hpp"
 #include "King.hpp"
+
 
 class Chess
 {

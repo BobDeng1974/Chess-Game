@@ -25,12 +25,14 @@ class Piece
         // Getters
         bool hasMoved() const;
         bool isControlled() const;
-        CellTexture::Piece getType() const;
+        CellTexture::PieceType getType() const;
     
     protected:
         // Piece type specific values
-        CellTexture::Piece type_;
+        CellTexture::PieceType type_;
         int value_;
+    
+        
     
         // State Variables
         bool hasMoved_;         // If piece has moved

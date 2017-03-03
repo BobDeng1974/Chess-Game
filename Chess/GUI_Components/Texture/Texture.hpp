@@ -35,7 +35,7 @@ public:
     //Renders texture at given point
     void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
     // Renders texture inside Rect
-    void render( SDL_Rect renderQuad );
+    void render( SDL_Rect renderQuad , bool fitToScreen);
 
     // Set Texture Properties
     void setBlendMode( SDL_BlendMode blending );
@@ -51,7 +51,7 @@ public:
 
 private:
     //The actual hardware texture
-    SDL_Texture* mTexture_;
+    SDL_Texture* mTexture_ = nullptr;
     
     SDL_Renderer* renderer_=nullptr;
     TTF_Font* font_ = NULL;

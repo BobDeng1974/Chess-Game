@@ -26,7 +26,7 @@ Handler RectButton::handleEvent(SDL_Event *e)
     if( !enabled_) return handler;
     
     //If mouse event happened
-    if( e->type == SDL_MOUSEBUTTONDOWN)
+    if( e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEMOTION)
     {
         //Get mouse position
         int x, y;
@@ -57,8 +57,19 @@ Handler RectButton::handleEvent(SDL_Event *e)
         }
         
         if(inside){
-            isClicked_ = !isClicked_;
-            handler.setEvent(event_);
+            if(e->type == SDL_MOUSEMOTION){
+                isInside_=true;
+            }
+            else{
+                isClicked_ = !isClicked_;
+            }
+            handler.setEvent(Handler::EVENT_RENDER);
+        }
+        else{
+            if(isInside_){
+                isInside_= false;
+                handler.setEvent(Handler::EVENT_RENDER);
+            }
         }
     }
     // If it isn't a toggle button, on mouse up, deselect
@@ -85,6 +96,7 @@ void RectButton::render()
     // render inside
     SDL_Rect fillRect = { anchorPoint_.x, anchorPoint_.y, width_, height_ };
     if( isClicked_)SDL_SetRenderDrawColor( renderer_, 0xCC, 0xCC, 0xCC, 0xFF );
+    else if( isInside_)SDL_SetRenderDrawColor( renderer_, 0xCC, 0xCC, 0xCC, 0xFF );
     else SDL_SetRenderDrawColor( renderer_, 0xE5, 0xE5, 0xE5, 0xFF );
     SDL_RenderFillRect( renderer_, &fillRect );
     
@@ -95,11 +107,15 @@ void RectButton::render()
 
     // render text
     if(texture_!=nullptr)
-        texture_->render( anchorPoint_.x + (width_ - texture_->getWidth())/2, anchorPoint_.y + (height_ - texture_->getHeight())/2);
+        texture_->render(fillRect, stretched_);
 
 }
 
-void RectButton::setToggle(bool toggle){ hasToggleCapacity_ = toggle;}
+void
+RectButton::setToggle(bool toggle){ hasToggleCapacity_ = toggle;}
+
+void
+RectButton::setStretch(bool stretch){ this->stretched_ = stretch; }
 
 // Sets Button event to be set on clicked
 void RectButton::setCallbackEvent(Handler::Event event){ this->event_ = event; }

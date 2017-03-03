@@ -26,6 +26,8 @@ HttpResponse Communication::postServer(std::string resource, std::string content
     // return variable
     HttpResponse response;
     
+    std:: cout << " Seding dat booty ! \n" << body << std::endl;
+    
     // Init curl
     curl = curl_easy_init();
     if(!curl) // If fails, return
@@ -49,6 +51,9 @@ HttpResponse Communication::postServer(std::string resource, std::string content
     headers = curl_slist_append(headers, content.c_str());
     // set set of headers
     res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    
+    /* Now specify the POST data */
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
     
     // Set body reader
     std::string readBuffer;

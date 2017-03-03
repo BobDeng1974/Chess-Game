@@ -14,15 +14,21 @@ Piece::Piece(bool isPlayerControlled)
     reset();
 }
 
-void Piece::reset()
+void
+Piece::reset()
 {
     hasMoved_=false;
+    
 }
 
-void Piece::setMoved() { this->hasMoved_ = true; }
+void
+Piece::setMoved() { this->hasMoved_ = true; }
 
-bool Piece::isControlled() const { return isControlled_; }
+bool
+Piece::isControlled() const { return isControlled_; }
 
-bool Piece::hasMoved() const { return hasMoved_; }
+bool
+Piece::hasMoved() const { return hasMoved_; }
 
-CellTexture::Piece Piece::getType() const { return type_; }
+CellTexture::PieceType
+Piece::getType() const { return type_; }

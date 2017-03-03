@@ -66,7 +66,7 @@ bool CellTexture::loadFromFile(std::string path, bool hasColorkey, uint8_t red ,
 }
 
 // Render Texture
-void CellTexture::render( int x, int y, CellTexture::Piece piecetype )
+void CellTexture::render( int x, int y, CellTexture::PieceType piecetype )
 {
     //Set rendering space and render to screen
     SDL_Rect renderQuad = { x, y, cellHeight_, cellWidth_ };

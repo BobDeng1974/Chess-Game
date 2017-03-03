@@ -116,10 +116,21 @@ bool Texture::loadFromRenderedText( std::string textureText, SDL_Color textColor
 
 // Render Texture on Rect
 void
-Texture::render( SDL_Rect renderQuad )
+Texture::render( SDL_Rect renderQuad , bool fitToScreen)
 {
-    //Render to screen
-    SDL_RenderCopy( renderer_, mTexture_, 0 , &renderQuad);
+    if( !fitToScreen){
+        int x = (renderQuad.w > mWidth)? renderQuad.x + (renderQuad.w/2 - mWidth/2): renderQuad.x;
+        int y = (renderQuad.h > mHeight)? renderQuad.y + (renderQuad.h/2 - mHeight/2): renderQuad.y;
+        int width = (renderQuad.w > mWidth)? mWidth: renderQuad.w;
+        int height = (renderQuad.h > mHeight)? mHeight: renderQuad.h;
+
+        SDL_Rect newQuad = { x, y , width, height};
+        SDL_RenderCopy( renderer_, mTexture_, 0 , &newQuad);
+    }
+    else{
+        //Render to screen
+        SDL_RenderCopy( renderer_, mTexture_, 0 , &renderQuad);
+    }
 }
 
 // Render Texture
@@ -163,7 +174,7 @@ void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue)
 void Texture::free()
 {
     //Free texture if it exists
-    if( mTexture_ != NULL )
+    if( mTexture_ != nullptr )
     {
         SDL_DestroyTexture( mTexture_ );
         mTexture_ = NULL;

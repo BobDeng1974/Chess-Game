@@ -34,6 +34,7 @@ class RectButton : public Button
     
         // Set toggle behaviour
         void setToggle( bool toggle);
+        void setStretch(  bool stretch);
     
     protected:
         int width_;
@@ -41,8 +42,10 @@ class RectButton : public Button
     
         // Indicates if button was clicked
         bool isClicked_ = false;
+        bool isInside_ = false;
         // indicates is it should toggle
         bool hasToggleCapacity_ = false;
+        bool stretched_ = false;
         // indicates event to be pushed on clicked
         Handler::Event event_ = Handler::EVENT_IGNORE;
   

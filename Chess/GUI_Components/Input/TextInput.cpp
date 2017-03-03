@@ -21,7 +21,7 @@ TextInput::handleEvent(SDL_Event *e)
     Handler handler(Handler::EVENT_IGNORE);
     bool renderText = false;
     //Special key input
-    if( e->type == SDL_KEYDOWN )
+    if( e->type == SDL_KEYDOWN && focused_)
     {
         //Handle backspace
         if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0 )
@@ -43,7 +43,7 @@ TextInput::handleEvent(SDL_Event *e)
         }
     }
     //Special text input event
-    else if( e->type == SDL_TEXTINPUT )
+    else if( e->type == SDL_TEXTINPUT && focused_)
     {
         //Not copy or pasting
         if( !( ( e->text.text[ 0 ] == 'c' || e->text.text[ 0 ] == 'C' ) && ( e->text.text[ 0 ] == 'v' || e->text.text[ 0 ] == 'V' ) && SDL_GetModState() & KMOD_CTRL ) )
@@ -52,9 +52,49 @@ TextInput::handleEvent(SDL_Event *e)
             inputText += e->text.text;
             renderText = true;
         }
+    }else if( e->type == SDL_MOUSEBUTTONDOWN) { //If mouse event happened
+        //Get mouse position
+        int x, y;
+        SDL_GetMouseState( &x, &y );
+        
+        //Check if mouse is in button
+        bool inside = true;
+        
+        //Mouse is left of the button
+        if( x < anchorPoint_.x )
+        {
+            inside = false;
+        }
+        //Mouse is right of the button
+        else if( x > anchorPoint_.x + width_ )
+        {
+            inside = false;
+        }
+        //Mouse above the button
+        else if( y < anchorPoint_.y )
+        {
+            inside = false;
+        }
+        //Mouse below the button
+        else if( y > anchorPoint_.y + height_ )
+        {
+            inside = false;
+        }
+        
+        if(inside){
+            focused_ = true;
+            handler.setEvent(Handler::EVENT_INPUT);
+        }else{
+            if(focused_)
+                handler.setEvent(Handler::EVENT_INPUT);
+            focused_=false;
+        }
     }
-    if( renderText)
+
+    if( renderText){
+        loadTextTexture();
         handler.setEvent(Handler::EVENT_INPUT);
+    }
     return handler;
 }
 
@@ -64,4 +104,6 @@ TextInput::render()
 {
     BaseInput::render();
 }
+
+
 

@@ -25,8 +25,6 @@ class TextInput : public BaseInput
         // interface render
         virtual void render();
     
-    private:
-        
 };
 
 #endif /* TextInput_hpp */
