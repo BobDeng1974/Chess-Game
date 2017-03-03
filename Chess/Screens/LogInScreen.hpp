@@ -16,6 +16,7 @@
 #include "Font.hpp"
 #include "Handler.hpp"
 #include "SelectorButton.hpp"
+#include "TextInput.hpp"
 
 #define CREATE_USER 1
 #define ENTER_AS_GUEST 2
@@ -45,8 +46,9 @@ class LogInScreen : public Screen
         //TTF font
         Font* font_ = nullptr;
 
-        // Vector with Buttons
-        std::vector<Button*> listButtons_;
+        // GUI_Components on the screen
+        std::vector<Button*> listButtons_;      // list of buttons
+        TextInput* usernameInput_ = nullptr;    // TextInput for username
     
         // List of Handlers (event tracker)
         std::queue<Handler> handlerQueue_;

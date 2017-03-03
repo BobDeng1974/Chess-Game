@@ -114,6 +114,14 @@ bool Texture::loadFromRenderedText( std::string textureText, SDL_Color textColor
     return mTexture_ != NULL;
 }
 
+// Render Texture on Rect
+void
+Texture::render( SDL_Rect renderQuad )
+{
+    //Render to screen
+    SDL_RenderCopy( renderer_, mTexture_, 0 , &renderQuad);
+}
+
 // Render Texture
 void Texture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {

@@ -65,7 +65,10 @@ LogInScreen::start()
                 quit = true;
             }
             else{
-                //handlerQueue_.push();
+                // Pass event onto buttons
+                for( Button* button: listButtons_) handlerQueue_.push(button->handleEvent(&e));
+                // Pass event onto username TextInput
+                handlerQueue_.push(usernameInput_->handleEvent(&e));
             }
         }
         // Process queue of handlers and see if required update window
@@ -84,18 +87,22 @@ LogInScreen::loadButtons()
     int buttonHeight = windowHeight_/5;
     int windowCenterX = windowWidth_/2;
     
+    // Create UserName input box
+    usernameInput_ = new TextInput(renderer_,
+                                   font_->getFont(24),
+                                   windowCenterX - buttonWidth/2 ,  // X
+                                   buttonHeight/2,                  // Y
+                                   buttonWidth,                     // Width
+                                   buttonHeight);
     
     SelectorButton* newButton;
     std::string buttonName;
-
-    
-    
     // Create User Button
     buttonName = "Create User";
     newButton = new SelectorButton(renderer_ ,
                                    font_->getFont(24),
                                    windowCenterX - buttonWidth/2 ,  // X
-                                   buttonHeight/2,                  // Y
+                                   (2*buttonHeight/2) + (buttonHeight), // Y
                                    buttonWidth,                     // Width
                                    buttonHeight,                    // Height
                                    CREATE_USER);                    // Set onClick Value
@@ -107,15 +114,14 @@ LogInScreen::loadButtons()
     buttonName = "Enter as Guest";
     newButton = new SelectorButton(renderer_ ,
                                    font_->getFont(24),
-                                   windowCenterX - buttonWidth/2 ,  // X
-                                   buttonHeight/2 + buttonHeight,   // Y
-                                   buttonWidth,                     // Width
-                                   buttonHeight,                    // Height
-                                   ENTER_AS_GUEST);                    // Set onClick Value
+                                   windowCenterX - buttonWidth/2 ,      // X
+                                   (3*buttonHeight/2) + (2*buttonHeight),   // Y
+                                   buttonWidth,                         // Width
+                                   buttonHeight,                        // Height
+                                   ENTER_AS_GUEST);                     // Set onClick Value
     newButton->setText(buttonName);
     newButton->setCallbackEvent(Handler::EVENT_BUTTONCLICK);
     listButtons_.push_back(newButton);
-
     
     return true;
 }
@@ -131,11 +137,19 @@ bool LogInScreen::processHandlers()
         
         switch (handler.getEvent())
         {
-            case Handler::EVENT_INPUT:
+            case Handler::EVENT_INPUT :
                 success = true;
                 break;
-           
-            default:
+                
+            case Handler::EVENT_BUTTONCLICK :
+                int buttonID = handler.getIntExtra();
+                switch (buttonID) {
+                    case CREATE_USER:
+                        break;
+                        
+                    case ENTER_AS_GUEST:
+                        break;
+                }
                 break;
         }
     }

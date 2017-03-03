@@ -11,12 +11,22 @@
 
 #include <iostream>
 
-class TextInput
+#include "BaseInput.hpp"
+
+class TextInput : public BaseInput
 {
-public:
+    public:
+        TextInput(SDL_Renderer* renderer,TTF_Font* font);
+        TextInput(SDL_Renderer* renderer,TTF_Font* font, int x, int y, int width, int height);
+
+        // handle event on button
+        virtual Handler handleEvent( SDL_Event *e);
+        
+        // interface render
+        virtual void render();
     
-protected:
-    
+    private:
+        
 };
 
 #endif /* TextInput_hpp */

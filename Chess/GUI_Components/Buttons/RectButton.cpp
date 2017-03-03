@@ -23,7 +23,7 @@ Handler RectButton::handleEvent(SDL_Event *e)
     Handler handler(Handler::EVENT_IGNORE);
     
     // Button is disabled, ignore input
-    if( !isEnabled_) return handler;
+    if( !enabled_) return handler;
     
     //If mouse event happened
     if( e->type == SDL_MOUSEBUTTONDOWN)
@@ -80,7 +80,7 @@ void RectButton::reset()
 // Renders button
 void RectButton::render()
 {
-    if( !isVisible_) return;
+    if( !visible_) return;
     
     // render inside
     SDL_Rect fillRect = { anchorPoint_.x, anchorPoint_.y, width_, height_ };

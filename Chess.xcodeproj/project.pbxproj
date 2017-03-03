@@ -16,8 +16,8 @@
 		72A915491E68DD8300D8E032 /* RectButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915441E68DD8300D8E032 /* RectButton.cpp */; };
 		72A9154A1E68DD8300D8E032 /* SelectorButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915461E68DD8300D8E032 /* SelectorButton.cpp */; };
 		72A9154E1E68E29500D8E032 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9154C1E68E29500D8E032 /* Texture.cpp */; };
-		72A915511E68E3C800D8E032 /* TextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9154F1E68E3C800D8E032 /* TextInput.cpp */; };
-		72A915561E68E48200D8E032 /* BaseInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915541E68E48200D8E032 /* BaseInput.cpp */; };
+		72A9155B1E68E56C00D8E032 /* BaseInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915571E68E56C00D8E032 /* BaseInput.cpp */; };
+		72A9155C1E68E56C00D8E032 /* TextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915591E68E56C00D8E032 /* TextInput.cpp */; };
 		72BF1A1C1E659D01006AF761 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A1B1E659D01006AF761 /* main.cpp */; };
 		72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A221E659F4E006AF761 /* ChessScreen.cpp */; };
 		72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BF1A261E659FEB006AF761 /* SDL2_image.framework */; };
@@ -69,10 +69,10 @@
 		72A915471E68DD8300D8E032 /* SelectorButton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectorButton.hpp; path = GUI_Components/Buttons/SelectorButton.hpp; sourceTree = "<group>"; };
 		72A9154C1E68E29500D8E032 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = GUI_Components/Texture/Texture.cpp; sourceTree = "<group>"; };
 		72A9154D1E68E29500D8E032 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Texture.hpp; path = GUI_Components/Texture/Texture.hpp; sourceTree = "<group>"; };
-		72A9154F1E68E3C800D8E032 /* TextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextInput.cpp; path = GUI_Components/Input/TextInput.cpp; sourceTree = "<group>"; };
-		72A915501E68E3C800D8E032 /* TextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TextInput.hpp; path = GUI_Components/Input/TextInput.hpp; sourceTree = "<group>"; };
-		72A915541E68E48200D8E032 /* BaseInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseInput.cpp; path = GUI_Components/Input/BaseInput.cpp; sourceTree = "<group>"; };
-		72A915551E68E48200D8E032 /* BaseInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseInput.hpp; path = GUI_Components/Input/BaseInput.hpp; sourceTree = "<group>"; };
+		72A915571E68E56C00D8E032 /* BaseInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseInput.cpp; path = GUI_Components/Input/BaseInput.cpp; sourceTree = "<group>"; };
+		72A915581E68E56C00D8E032 /* BaseInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseInput.hpp; path = GUI_Components/Input/BaseInput.hpp; sourceTree = "<group>"; };
+		72A915591E68E56C00D8E032 /* TextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextInput.cpp; path = GUI_Components/Input/TextInput.cpp; sourceTree = "<group>"; };
+		72A9155A1E68E56C00D8E032 /* TextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TextInput.hpp; path = GUI_Components/Input/TextInput.hpp; sourceTree = "<group>"; };
 		72BF1A181E659D01006AF761 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF1A1B1E659D01006AF761 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		72BF1A221E659F4E006AF761 /* ChessScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChessScreen.cpp; path = Screens/ChessScreen.cpp; sourceTree = "<group>"; };
@@ -152,10 +152,10 @@
 		72A915521E68E3CE00D8E032 /* TextInput */ = {
 			isa = PBXGroup;
 			children = (
-				72A9154F1E68E3C800D8E032 /* TextInput.cpp */,
-				72A915501E68E3C800D8E032 /* TextInput.hpp */,
-				72A915541E68E48200D8E032 /* BaseInput.cpp */,
-				72A915551E68E48200D8E032 /* BaseInput.hpp */,
+				72A915571E68E56C00D8E032 /* BaseInput.cpp */,
+				72A915581E68E56C00D8E032 /* BaseInput.hpp */,
+				72A915591E68E56C00D8E032 /* TextInput.cpp */,
+				72A9155A1E68E56C00D8E032 /* TextInput.hpp */,
 			);
 			name = TextInput;
 			sourceTree = "<group>";
@@ -359,12 +359,13 @@
 				72A915491E68DD8300D8E032 /* RectButton.cpp in Sources */,
 				72BF1A531E673BEE006AF761 /* Rook.cpp in Sources */,
 				72BF1A451E65AA08006AF761 /* Cell.cpp in Sources */,
-				72A915561E68E48200D8E032 /* BaseInput.cpp in Sources */,
 				72BF1A421E65A432006AF761 /* Chess.cpp in Sources */,
 				72BF1A4C1E67307E006AF761 /* Piece.cpp in Sources */,
 				72A9153E1E68D68500D8E032 /* LogInScreen.cpp in Sources */,
 				72A9154E1E68E29500D8E032 /* Texture.cpp in Sources */,
 				72A915371E689AAB00D8E032 /* HttpResponse.cpp in Sources */,
+				72A9155B1E68E56C00D8E032 /* BaseInput.cpp in Sources */,
+				72A9155C1E68E56C00D8E032 /* TextInput.cpp in Sources */,
 				72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */,
 				72BF1A5D1E673D17006AF761 /* Queen.cpp in Sources */,
 				72BF1A301E65A024006AF761 /* Window.cpp in Sources */,
@@ -375,7 +376,6 @@
 				72BF1A571E673C76006AF761 /* Knight.cpp in Sources */,
 				72BF1A1C1E659D01006AF761 /* main.cpp in Sources */,
 				72A915481E68DD8300D8E032 /* Button.cpp in Sources */,
-				72A915511E68E3C800D8E032 /* TextInput.cpp in Sources */,
 				72BF1A361E65A103006AF761 /* Handler.cpp in Sources */,
 				72BF1A501E67352F006AF761 /* Pawn.cpp in Sources */,
 				72A9153B1E689C5600D8E032 /* Communication.cpp in Sources */,

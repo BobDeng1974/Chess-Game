@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+#include "LogInScreen.hpp"
 #include "ChessScreen.hpp"
 #include "Communication.hpp"
 
@@ -33,6 +34,8 @@ int main(int argc, const char * argv[])
             std::cerr << "Warning: Linear texture filtering not enabled!\n";
         }
     }
+    
+    LogInScreen* login = new LogInScreen(200 , 200, "Log in");
     
     //Create Resolution Screen
     ChessScreen* chessScreen = new ChessScreen(SCREEN_WIDTH, SCREEN_HEIGHT);

@@ -46,9 +46,9 @@ bool Button::setText(std::string text)
 }
 
 // Setters
-void Button::setEnabled(bool enabled) { isEnabled_ = enabled; }
-void Button::setVisibility(bool visibility) { isVisible_ = visibility; }
+void Button::setEnabled(bool enabled) { enabled_ = enabled; }
+void Button::setVisibility(bool visibility) { visible_ = visibility; }
 
 // Getters
-bool Button::getEnabled() const { return isEnabled_; }
-bool Button::getVisibility() const { return isVisible_; }
+bool Button::isEnabled() const { return enabled_; }
+bool Button::isVisible() const { return visible_; }

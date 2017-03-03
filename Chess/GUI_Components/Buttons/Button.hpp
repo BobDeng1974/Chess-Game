@@ -44,8 +44,8 @@ class Button
         void setEnabled( bool enabled);
     
         // Getters of State
-        bool getVisibility() const;
-        bool getEnabled() const;
+        bool isVisible() const;
+        bool isEnabled() const;
     
     protected:
         // button location
@@ -63,8 +63,8 @@ class Button
         SDL_Color textColor = { 0, 0, 0, 0xFF };
     
         // State Indicators
-        bool isVisible_ = true;
-        bool isEnabled_ = true;
+        bool visible_ = true;
+        bool enabled_ = true;
 
 };
 
