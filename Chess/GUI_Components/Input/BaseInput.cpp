@@ -38,10 +38,10 @@ BaseInput::render()
     SDL_Rect inputRect = { anchorPoint_.x, anchorPoint_.y, width_, height_ };
     SDL_RenderDrawRect( renderer_, &inputRect );
     
-    if( inputText.size()==0 && hasPlaceHolder_)
-        placeHolder_->render(inputRect, false);
-    else if(texture_!=nullptr)
+    if(texture_ != nullptr && inputText.size()!=0)
         texture_->render( inputRect , false);
+    else if( hasPlaceHolder_)
+        placeHolder_->render(inputRect, false);
 }
 
 
@@ -102,7 +102,7 @@ BaseInput::isFocused() const { return focused_; }
 void
 BaseInput::loadTextTexture()
 {
-    if( texture_!=nullptr){
+    if( texture_!=nullptr && inputText.size()!=0){
         texture_->loadFromRenderedText(inputText, textColor );
     }
 }

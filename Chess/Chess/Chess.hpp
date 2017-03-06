@@ -21,6 +21,7 @@
 #include "Bishop.hpp"
 #include "Queen.hpp"
 #include "King.hpp"
+#include "BoardVerifier.hpp"
 
 
 class Chess
@@ -67,6 +68,7 @@ class Chess
     
         std::vector<Cell> board_;
     
+        BoardVerifier verifier_;
     
     
         // Creates the board (all cells)

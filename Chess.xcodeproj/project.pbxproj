@@ -19,6 +19,8 @@
 		72A9155B1E68E56C00D8E032 /* BaseInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915571E68E56C00D8E032 /* BaseInput.cpp */; };
 		72A9155C1E68E56C00D8E032 /* TextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915591E68E56C00D8E032 /* TextInput.cpp */; };
 		72A9155F1E699D3700D8E032 /* CellTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A9155D1E699D3700D8E032 /* CellTexture.cpp */; };
+		72A915671E6CC66B00D8E032 /* PasswordInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915651E6CC66B00D8E032 /* PasswordInput.cpp */; };
+		72A9156A1E6CD44600D8E032 /* BoardVerifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915681E6CD44600D8E032 /* BoardVerifier.cpp */; };
 		72BF1A1C1E659D01006AF761 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A1B1E659D01006AF761 /* main.cpp */; };
 		72BF1A241E659F4E006AF761 /* ChessScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A221E659F4E006AF761 /* ChessScreen.cpp */; };
 		72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72BF1A261E659FEB006AF761 /* SDL2_image.framework */; };
@@ -76,6 +78,10 @@
 		72A9155D1E699D3700D8E032 /* CellTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CellTexture.cpp; path = GUI_Components/Texture/CellTexture.cpp; sourceTree = "<group>"; };
 		72A9155E1E699D3700D8E032 /* CellTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CellTexture.hpp; path = GUI_Components/Texture/CellTexture.hpp; sourceTree = "<group>"; };
 		72A915601E69B18A00D8E032 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = Communication/json.hpp; sourceTree = "<group>"; };
+		72A915651E6CC66B00D8E032 /* PasswordInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PasswordInput.cpp; path = GUI_Components/Input/PasswordInput.cpp; sourceTree = "<group>"; };
+		72A915661E6CC66B00D8E032 /* PasswordInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PasswordInput.hpp; path = GUI_Components/Input/PasswordInput.hpp; sourceTree = "<group>"; };
+		72A915681E6CD44600D8E032 /* BoardVerifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BoardVerifier.cpp; path = Chess/BoardVerifier.cpp; sourceTree = "<group>"; };
+		72A915691E6CD44600D8E032 /* BoardVerifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BoardVerifier.hpp; path = Chess/BoardVerifier.hpp; sourceTree = "<group>"; };
 		72BF1A181E659D01006AF761 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF1A1B1E659D01006AF761 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		72BF1A221E659F4E006AF761 /* ChessScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChessScreen.cpp; path = Screens/ChessScreen.cpp; sourceTree = "<group>"; };
@@ -158,6 +164,8 @@
 				72A915581E68E56C00D8E032 /* BaseInput.hpp */,
 				72A915591E68E56C00D8E032 /* TextInput.cpp */,
 				72A9155A1E68E56C00D8E032 /* TextInput.hpp */,
+				72A915651E6CC66B00D8E032 /* PasswordInput.cpp */,
+				72A915661E6CC66B00D8E032 /* PasswordInput.hpp */,
 			);
 			name = TextInput;
 			sourceTree = "<group>";
@@ -275,6 +283,8 @@
 				72BF1A441E65AA08006AF761 /* Cell.hpp */,
 				72BF1A401E65A432006AF761 /* Chess.cpp */,
 				72BF1A411E65A432006AF761 /* Chess.hpp */,
+				72A915681E6CD44600D8E032 /* BoardVerifier.cpp */,
+				72A915691E6CD44600D8E032 /* BoardVerifier.hpp */,
 			);
 			name = Chess;
 			sourceTree = "<group>";
@@ -376,6 +386,8 @@
 				72BF1A601E673D56006AF761 /* King.cpp in Sources */,
 				72A915411E68D6EB00D8E032 /* Screen.cpp in Sources */,
 				72BF1A571E673C76006AF761 /* Knight.cpp in Sources */,
+				72A9156A1E6CD44600D8E032 /* BoardVerifier.cpp in Sources */,
+				72A915671E6CC66B00D8E032 /* PasswordInput.cpp in Sources */,
 				72BF1A1C1E659D01006AF761 /* main.cpp in Sources */,
 				72A915481E68DD8300D8E032 /* Button.cpp in Sources */,
 				72BF1A361E65A103006AF761 /* Handler.cpp in Sources */,

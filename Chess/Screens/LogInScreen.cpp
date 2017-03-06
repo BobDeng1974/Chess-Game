@@ -61,18 +61,15 @@ LogInScreen::start()
     // Event Handler
     SDL_Event e;
     
-    int alpha = 255;
     while( !quit && !hasAuthenticated_){
         while( SDL_PollEvent( &e) != 0 ){
             if( e.type == SDL_QUIT){
                 quit = true;
             }
             else{
-                
-              
                 // Pass event onto buttons
                 for( Button* button: listButtons_) handlerQueue_.push(button->handleEvent(&e));
-                // Pass event onto username TextInput
+                // Pass event onto username and password TextInput
                 handlerQueue_.push(usernameInput_->handleEvent(&e));
                 handlerQueue_.push(passwordInput_->handleEvent(&e));
             }
@@ -104,7 +101,7 @@ LogInScreen::loadButtons()
     usernameInput_->setPlaceHolder("username", '0');
     
     // Create UserName input box
-    passwordInput_ = new TextInput(renderer_,
+    passwordInput_ = new PasswordInput(renderer_,
                                    font_->getFont(20),
                                    windowCenterX - buttonWidth/2 ,  // X
                                    buttonHeight + (2*spacing),    // Y
@@ -180,13 +177,13 @@ bool LogInScreen::processHandlers()
                 success = true;
                 break;
                 
-            case Handler::EVENT_BUTTONCLICK :
+            case Handler::EVENT_BUTTONCLICK :{
                 int buttonID = handler.getIntExtra();
                 switch (buttonID) {
                     case CREATE_USER:{
                         if(!CreateUser(false))
                             // Show error message
-                            hasAuthenticated_=true;
+                            hasAuthenticated_=false;
                         else
                             hasAuthenticated_=true;
                         break;
@@ -194,17 +191,23 @@ bool LogInScreen::processHandlers()
                     case ENTER_AS_GUEST:{
                         if(!CreateUser(true))
                             // Show error message
-                            hasAuthenticated_=true;
+                            hasAuthenticated_=false;
                         else
                             hasAuthenticated_=true;
                         break;
                     }
                     case AUTHENTICATE:{
-                        //authenticateUser();
-                        // hasAuthenticated_ set
+                        if(!authenticateUser())
+                            hasAuthenticated_=false;
+                        else
+                            hasAuthenticated_=true;
                         break;
                     }
                 }
+                break;
+            }
+                
+            default:
                 break;
         }
     }

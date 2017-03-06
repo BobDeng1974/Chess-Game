@@ -17,6 +17,7 @@
 #include "Handler.hpp"
 #include "SelectorButton.hpp"
 #include "TextInput.hpp"
+#include "PasswordInput.hpp"
 #include "Communication.hpp"
 
 #include "json.hpp"
@@ -57,7 +58,7 @@ class LogInScreen : public Screen
         // GUI_Components on the screen
         std::vector<Button*> listButtons_;      // list of buttons
         TextInput* usernameInput_ = nullptr;    // TextInput for username
-        TextInput* passwordInput_ = nullptr;    // TextInput for username
+        PasswordInput* passwordInput_ = nullptr;    // TextInput for username
 
         // List of Handlers (event tracker)
         std::queue<Handler> handlerQueue_;

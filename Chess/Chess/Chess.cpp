@@ -40,7 +40,7 @@ void Chess::createBoard()
 }
 
 void Chess::initiatePieces(){
-    /*//Set Opponents Pieces
+    //Set Opponents Pieces
     for (int i=0; i<horizontalCellNo; i++){
         if(i == 0 || i== horizontalCellNo-1)
             board_[i].setPiece( new Rook(false));
@@ -52,7 +52,7 @@ void Chess::initiatePieces(){
             board_[i].setPiece( new Queen(false));
         else
             board_[i].setPiece( new King(false));;
-    }*/
+    }
     
     
     //Set Opponents pawns
@@ -116,6 +116,9 @@ Handler Chess::handleEvent(SDL_Event *e)
     // return Handler
     Handler handler(Handler::EVENT_IGNORE);
     
+    // bool for valid piece movement
+    bool updateConditions;
+    
     //If mouse event happened
     if( e->type == SDL_MOUSEBUTTONDOWN)
     {
@@ -174,7 +177,10 @@ Handler Chess::handleEvent(SDL_Event *e)
                 focusedCell->setPiece(nullptr);
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
+                
+                verifier_.verifyBoardState(board_);
 
+                
             }
             else if( board_[(row*horizontalCellNo)+col].isLegalMove()){
                 
@@ -186,6 +192,8 @@ Handler Chess::handleEvent(SDL_Event *e)
                 focusedCell->setPiece(nullptr);
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
+                
+                verifier_.verifyBoardState(board_);
 
             }
             if(focusedCell!=nullptr){

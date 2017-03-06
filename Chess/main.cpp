@@ -35,7 +35,16 @@ int main(int argc, const char * argv[])
         }
     }
     
-    LogInScreen* login = new LogInScreen(400 , 150, "Log in");
+    //Create Resolution Screen
+    ChessScreen* chessScreen = new ChessScreen(SCREEN_WIDTH, SCREEN_HEIGHT);
+    
+    // Initiate Screen for resolution selection
+    if( chessScreen->init() ){
+        chessScreen->start();
+    }
+
+    
+    /*LogInScreen* login = new LogInScreen(400 , 150, "Log in");
     if( login->init() ){
         login->start();
     }
@@ -47,6 +56,6 @@ int main(int argc, const char * argv[])
         if( chessScreen->init() ){
             chessScreen->start();
         }
-    }
+    }*/
     return 0;
 }
