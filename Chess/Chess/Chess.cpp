@@ -64,7 +64,7 @@ void Chess::initiatePieces(){
     
     board_[(3*horizontalCellNo) + 7].setPiece( new Pawn(false));
     Pawn* pawn = static_cast<Pawn*>(board_[(3*horizontalCellNo) + 7].getPiece());
-    pawn->setDouble();
+    pawn->setDoubleJumpTurn(0);
     
     
     
@@ -87,6 +87,8 @@ void Chess::initiatePieces(){
     for (int i=0; i<horizontalCellNo; i++){
         board_[row + i].setPiece( new Pawn(true));
     }
+    
+    verifier_.verifyBoardState(board_,1);
 }
 
 // Renders the board
@@ -178,7 +180,7 @@ Handler Chess::handleEvent(SDL_Event *e)
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
                 
-                verifier_.verifyBoardState(board_);
+                verifier_.verifyBoardState(board_,1);
 
                 
             }
@@ -193,7 +195,7 @@ Handler Chess::handleEvent(SDL_Event *e)
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
                 
-                verifier_.verifyBoardState(board_);
+                verifier_.verifyBoardState(board_,1);
 
             }
             if(focusedCell!=nullptr){
@@ -220,66 +222,11 @@ void Chess::updatePossibleMoves()
 {
     SDL_Point cellPoint = focusedCell->getPosition();
     int cellPos = horizontalCellNo*cellPoint.y + cellPoint.x;
-    switch (focusedPiece_->getType()) {
-            
-        case CellTexture::PIECE_ROOK:{
-            rookValidMoves( cellPoint.y, cellPoint.x);
-            break;
-        }
-            
-        case CellTexture::PIECE_KNIGHT:{
-            knightValidMoves( cellPoint.y, cellPoint.x);
-            break;
-        }
-            
-        case CellTexture::PIECE_BISHOP:{
-            bishopValidMoves( cellPoint.y, cellPoint.x);
-            break;
-        }
-            
-        case CellTexture::PIECE_QUEEN:{
-            rookValidMoves( cellPoint.y, cellPoint.x);
-            bishopValidMoves( cellPoint.y, cellPoint.x);
-            break;
-        }
-            
-        case CellTexture::PIECE_KING:{
-            break;
-        }
-            
-        case CellTexture::PIECE_PAWN:{
-            int cellAbove = cellPos - horizontalCellNo;
-            
-            if( board_[cellAbove ].getPiece() == nullptr) // view cell above
-                board_[cellAbove ].setLegalMove(true);
-            
-            if(board_[cellAbove-horizontalCellNo ].getPiece() == nullptr && !focusedPiece_->hasMoved()) // view 2 cells up
-                board_[cellAbove-horizontalCellNo ].setLegalMove(true);
-
-            if(cellPoint.x != horizontalCellNo-1){
-                if( board_[cellAbove +1].getPiece() != nullptr) // view cell above to right
-                    board_[cellAbove +1].setLegalMove(true);
-                Pawn* adjacent = static_cast<Pawn*>(board_[ cellPos+1].getPiece());
-                if( adjacent!=nullptr && !adjacent->isControlled() && adjacent->didDouble() &&  board_[ (cellPos+1) - horizontalCellNo].getPiece()==nullptr){
-                    board_[ (cellPos+1) - horizontalCellNo].setLegalMove(true);
-                }
-            }
-            
-            if( cellPoint.x != 0 ){
-                if( board_[cellAbove -1].getPiece() != nullptr) // view cell above to left
-                    board_[cellAbove -1].setLegalMove(true);
-                Pawn* adjacent = static_cast<Pawn*>(board_[ cellPos-1].getPiece());
-                if( adjacent!=nullptr && !adjacent->isControlled() && adjacent->didDouble() &&  board_[ (cellPos-1) - horizontalCellNo].getPiece()==nullptr){
-                    board_[ (cellPos-1) - horizontalCellNo].setLegalMove(true);
-                }
-
-            }
-            break;
-        }
-        
-        default:
-            break;
-        
+    std::queue<int>pieceMoves = verifier_.getPieceMoves(cellPos);
+    while( !pieceMoves.empty()){
+        int index = pieceMoves.front();
+        pieceMoves.pop();
+        board_[index].setLegalMove(true);
     }
 }
 
@@ -311,141 +258,4 @@ void Chess::logger(SDL_Point src, SDL_Point dest, bool isPlayer)
             break;
     }
     std::cout << "(" << dest.y << "," << dest.x << ") \n";
-}
-
-void Chess::rookValidMoves(int row, int col)
-{
-    bool isBlocked= false; // Indicates if there is a piece blocking the way
-    Piece* piece;
-    
-    // From coordinates to the right
-    for(int i = col+1; i<horizontalCellNo && !isBlocked; i++){
-        if( (piece=board_[ (row*horizontalCellNo) +i].getPiece())==nullptr){
-            board_[ (row*horizontalCellNo) +i].setLegalMove(true);
-        }
-        else{
-            if(piece && !piece->isControlled())
-                board_[ (row*horizontalCellNo) +i].setLegalMove(true);
-            isBlocked=true;
-        }
-    }
-    
-    // From position to the left
-    isBlocked=false;
-    piece=nullptr;
-    for(int i = col-1; i>=0 && !isBlocked; i--){
-        if( (piece=board_[ (row*horizontalCellNo) +i].getPiece())==nullptr){
-            board_[ (row*horizontalCellNo) +i].setLegalMove(true);
-        }
-        else{
-            if(piece && !piece->isControlled())
-                board_[ (row*horizontalCellNo) +i].setLegalMove(true);
-
-            isBlocked=true;
-        }
-    }
-
-    // From position to the bottom
-    isBlocked= false;
-    piece=nullptr;
-    for(int i = row+1; i<verticalCellNo && !isBlocked; i++){
-        if( (piece=board_[ (i*horizontalCellNo) +col].getPiece())==nullptr){
-            board_[ (i*horizontalCellNo) +col].setLegalMove(true);
-        }
-        else{
-            if(piece && !piece->isControlled())
-                board_[ (i*horizontalCellNo) +col].setLegalMove(true);
-            isBlocked=true;
-        }
-    }
-
-    // From position to the top
-    isBlocked= false;
-    piece=nullptr;
-    for(int i = row-1; i>=0 && !isBlocked; i--){
-        if( (piece=board_[ (i*horizontalCellNo) +col].getPiece())==nullptr){
-            board_[ (i*horizontalCellNo) +col].setLegalMove(true);
-        }
-        else{
-            if(piece && !piece->isControlled())
-                board_[ (i*horizontalCellNo) +col].setLegalMove(true);
-            isBlocked=true;
-        }
-    }
-}
-
-void Chess::knightValidMoves(int row, int col)
-{
-    const static int moveNo=8;
-    int xValues[moveNo]={1,1,-1,-1,2,2,-2,-2};
-    int yValues[moveNo]={2,-2,2,-2,1,-1,1,-1};
-    
-    for (int i=0; i<moveNo; i++) {
-        int x = col + xValues[i];
-        int y = row + yValues[i];
-        if( y >= 0 && y < verticalCellNo && x >= 0 && x < horizontalCellNo ){
-            if( board_[(horizontalCellNo*y) + x].getPiece() ){
-                if( !board_[(horizontalCellNo*y) + x].getPiece()->isControlled())
-                    board_[(horizontalCellNo*y) + x].setLegalMove(true);
-            }
-            else
-                board_[(horizontalCellNo*y) + x].setLegalMove(true);
-        }
-    }
-}
-
-void Chess::bishopValidMoves(int row, int col)
-{
-    std::bitset<4>validDirections( std::string("0000"));
-    Piece* piece;
-    
-    for(int i= 1; validDirections.count()!=4; i++){
-        if( !validDirections[0]){
-            if(row+i >= verticalCellNo || col+i >= horizontalCellNo)
-                validDirections.flip(0);
-            else if( (piece=board_[(horizontalCellNo*(row+i)) + (col+i)].getPiece())==nullptr)
-                board_[(horizontalCellNo*(row+i)) + (col+i)].setLegalMove(true);
-            else{
-                if(!piece->isControlled())
-                    board_[(horizontalCellNo*(row+i)) + (col+i)].setLegalMove(true);
-                validDirections.flip(0);
-            }
-        }
-        
-        if(!validDirections[1]){
-            if(row+i >= verticalCellNo || col-i < 0)
-                validDirections.flip(1);
-            else if( (piece=board_[(horizontalCellNo*(row+i)) + (col-i)].getPiece())==nullptr)
-                board_[(horizontalCellNo*(row+i)) + (col-i)].setLegalMove(true);
-            else{
-                if(!piece->isControlled())
-                    board_[(horizontalCellNo*(row+i)) + (col-i)].setLegalMove(true);
-                validDirections.flip(1);
-            }
-        }
-        
-        if(!validDirections[2]){
-            if(row-i < 0 || col+i >= horizontalCellNo)
-                validDirections.flip(2);
-            else if( (piece=board_[(horizontalCellNo*(row-i)) + (col+i)].getPiece())==nullptr)
-                board_[(horizontalCellNo*(row-i)) + (col+i)].setLegalMove(true);
-            else{
-                if(!piece->isControlled())
-                    board_[(horizontalCellNo*(row-i)) + (col+i)].setLegalMove(true);
-                validDirections.flip(2);
-            }
-        }
-        
-        if(!validDirections[3]){
-            if( row-i < 0 || col-i < 0)
-                validDirections.flip(3);
-            else if( (piece=board_[(horizontalCellNo*(row-i)) + (col-i)].getPiece())==nullptr)
-                board_[(horizontalCellNo*(row-i)) + (col-i)].setLegalMove(true);
-            else{
-                if(!piece->isControlled())
-                    board_[(horizontalCellNo*(row-i)) + (col-i)].setLegalMove(true);
-                validDirections.flip(3);
-            }
-        }
-    }
 }

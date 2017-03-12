@@ -20,6 +20,6 @@ void Pawn::reset()
     this->didDouble_ = false;
 }
 
-bool Pawn::didDouble() const { return didDouble_; }
+int Pawn::getDoubleJumpTurn() const { return didDouble_; }
 
-void Pawn::setDouble(){ this->didDouble_=true; }
+void Pawn::setDoubleJumpTurn(int turn){ this->didDouble_= turn; }

@@ -20,13 +20,13 @@ class Pawn : public Piece
         virtual void reset();
     
         // Getter
-        bool didDouble() const;
+        int getDoubleJumpTurn() const;
 
         //Setters
-        void setDouble();
+        void setDoubleJumpTurn(int turn);
     
     private:
-        bool didDouble_;   // if piece pawn has done a double step
+        int didDouble_;   // if piece pawn has done a double step
 };
 
 

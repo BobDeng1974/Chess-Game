@@ -13,11 +13,13 @@
 #include <vector>
 #include <queue>
 
+#include "Pawn.hpp"
+#include "CellVerifier.hpp"
 #include "Cell.hpp"
-#include "Piece.hpp"
 
 #define USER 1
 #define OPPONENT 2
+#define KING_LOS 3
 
 class BoardVerifier
 {
@@ -25,21 +27,35 @@ class BoardVerifier
         enum State{STATE_CHECK, STATE_CHECKMATE, STATE_STALEMATE, STATE_NOTHING};
         BoardVerifier();
     
-        State verifyBoardState( std::vector<Cell>& board);
+        State verifyBoardState( std::vector<Cell>& board, int turn);
+    
+        std::queue<int> getPieceMoves(int index);
     
     private:
-        void rookAreaOfEffect(int row, int col, int teamValue, std::vector<Cell> &board);
-        void knightAreaOfEffect(int row, int col, int teamValue, std::vector<Cell> &board);
-        void bishopAreaOfEffect(int row, int col, int teamValue, std::vector<Cell> &board);
-        void pawnAreaOfEffect(int row, int col, int teamValue);
+        void rookAreaOfEffect(int row, int col);
+        void knightAreaOfEffect(int row, int col);
+        void bishopAreaOfEffect(int row, int col);
+        void pawnAreaOfEffect(int row, int col);
+        void kingAreaOfEffect(int row, int col);
+    
+        bool UpdateUserPieceMoves();
     
         static const int boardSize = 8;
-        int board_[boardSize][boardSize];
+        std::vector<CellVerifier> board_;
     
-        std::queue<std::pair<int, int>> piecesQueue_;
+        std::queue<int> piecesQueue_;
+        std::queue<int> piecesUserQueue_;
+        std::queue<int> kingThreats_;
+        std::queue<int> kingBlockers_;
     
-        bool verifyKingState(SDL_Point kingCoords);
-        State state_;
+    
+        bool verifyKingState();
+        State state_;               //reset
+        int kingIndex_;             //reset
+        Piece* king_ = nullptr;     //reset
+        bool onlyKingMoves=false;   //reset
+        int currentTurn;
+
 };
 
 #endif /* boardVerifier_hpp */// Show error message

@@ -39,6 +39,7 @@
 		72BF1A5A1E673CC2006AF761 /* Bishop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A581E673CC2006AF761 /* Bishop.cpp */; };
 		72BF1A5D1E673D17006AF761 /* Queen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A5B1E673D17006AF761 /* Queen.cpp */; };
 		72BF1A601E673D56006AF761 /* King.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72BF1A5E1E673D56006AF761 /* King.cpp */; };
+		72F4DBF01E71993A00F7B270 /* CellVerifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72F4DBEE1E71993A00F7B270 /* CellVerifier.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -114,6 +115,8 @@
 		72BF1A5C1E673D17006AF761 /* Queen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Queen.hpp; path = Chess/Pieces/Queen.hpp; sourceTree = "<group>"; };
 		72BF1A5E1E673D56006AF761 /* King.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = King.cpp; path = Chess/Pieces/King.cpp; sourceTree = "<group>"; };
 		72BF1A5F1E673D56006AF761 /* King.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = King.hpp; path = Chess/Pieces/King.hpp; sourceTree = "<group>"; };
+		72F4DBEE1E71993A00F7B270 /* CellVerifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CellVerifier.cpp; path = Chess/RuleChecker/CellVerifier.cpp; sourceTree = "<group>"; };
+		72F4DBEF1E71993A00F7B270 /* CellVerifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CellVerifier.hpp; path = Chess/RuleChecker/CellVerifier.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,8 +286,7 @@
 				72BF1A441E65AA08006AF761 /* Cell.hpp */,
 				72BF1A401E65A432006AF761 /* Chess.cpp */,
 				72BF1A411E65A432006AF761 /* Chess.hpp */,
-				72A915681E6CD44600D8E032 /* BoardVerifier.cpp */,
-				72A915691E6CD44600D8E032 /* BoardVerifier.hpp */,
+				72F4DBED1E7198D400F7B270 /* Game_Logic */,
 			);
 			name = Chess;
 			sourceTree = "<group>";
@@ -308,6 +310,17 @@
 				72BF1A5F1E673D56006AF761 /* King.hpp */,
 			);
 			name = Pieces;
+			sourceTree = "<group>";
+		};
+		72F4DBED1E7198D400F7B270 /* Game_Logic */ = {
+			isa = PBXGroup;
+			children = (
+				72A915681E6CD44600D8E032 /* BoardVerifier.cpp */,
+				72A915691E6CD44600D8E032 /* BoardVerifier.hpp */,
+				72F4DBEE1E71993A00F7B270 /* CellVerifier.cpp */,
+				72F4DBEF1E71993A00F7B270 /* CellVerifier.hpp */,
+			);
+			name = Game_Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,6 +401,7 @@
 				72BF1A571E673C76006AF761 /* Knight.cpp in Sources */,
 				72A9156A1E6CD44600D8E032 /* BoardVerifier.cpp in Sources */,
 				72A915671E6CC66B00D8E032 /* PasswordInput.cpp in Sources */,
+				72F4DBF01E71993A00F7B270 /* CellVerifier.cpp in Sources */,
 				72BF1A1C1E659D01006AF761 /* main.cpp in Sources */,
 				72A915481E68DD8300D8E032 /* Button.cpp in Sources */,
 				72BF1A361E65A103006AF761 /* Handler.cpp in Sources */,
