@@ -31,13 +31,15 @@ class BoardVerifier
     
         std::queue<int> getPieceMoves(int index);
     
+        bool isCastleMove(int index) const;
+    
     private:
         void rookAreaOfEffect(int row, int col);
         void knightAreaOfEffect(int row, int col);
         void bishopAreaOfEffect(int row, int col);
         void pawnAreaOfEffect(int row, int col);
         void kingAreaOfEffect(int row, int col);
-    
+        void verifyCastle();
         bool UpdateUserPieceMoves();
     
         static const int boardSize = 8;

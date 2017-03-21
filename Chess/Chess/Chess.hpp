@@ -75,6 +75,8 @@ class Chess
         void createBoard();
         // Puts pieces onto the board (initial state)
         void initiatePieces();
+        // Ends Game
+        void concludeGame(bool wonGame);    
     
         void logger( SDL_Point src, SDL_Point dest, bool isPlayer );
         void rookValidMoves(int row, int col);

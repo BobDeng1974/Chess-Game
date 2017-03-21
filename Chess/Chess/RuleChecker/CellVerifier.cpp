@@ -20,8 +20,10 @@ CellVerifier::reset()
     piece_ = nullptr;
     protectsKing_ = false;
     reachable_ = false;
+    castleMove_=false;
     while(!possibleMoves_.empty())
         possibleMoves_.pop();
+    attackDirection_.reset();
 }
 
 void
@@ -109,6 +111,10 @@ CellVerifier::setProtectsKing( direction dir )
     protectDir = dir;
     protectsKing_ = true;
 }
+void
+CellVerifier::setAttackerDirection(CellVerifier::direction dir) { attackDirection_.set(dir%4); }
+void
+CellVerifier::setCastleMove(){ castleMove_=true;}
 // Getters
 bool
 CellVerifier::isMovable() const{ return !possibleMoves_.empty(); }
@@ -138,4 +144,7 @@ bool
 CellVerifier::isProtectingKing() const { return protectsKing_;}
 std::queue<int>
 CellVerifier::getMoves() const {  return possibleMoves_; }
-
+bool
+CellVerifier::isAttackedFromDirection(CellVerifier::direction dir) const { return attackDirection_[dir%4];}
+bool
+CellVerifier::isCastleMove() const { return castleMove_; }

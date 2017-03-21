@@ -36,7 +36,8 @@ public:
     void setPiece( Piece* piece);
     void setClicked( bool clicked);
     void setLegalMove(bool isLegal);
-
+    
+    
     //Getters
     Piece* getPiece() const;
     bool isLegalMove() const;

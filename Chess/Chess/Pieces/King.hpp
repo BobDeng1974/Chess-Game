@@ -15,6 +15,7 @@ class King : public Piece
 {
     public:
         King(bool isPlayerControlled);
+
 };
 
 #endif /* King_hpp */

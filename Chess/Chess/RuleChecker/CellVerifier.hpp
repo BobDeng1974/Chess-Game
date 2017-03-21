@@ -32,6 +32,8 @@ public:
     void setMove(int index);
     void setReachable();
     void setProtectsKing(direction dir);
+    void setAttackerDirection(direction dir);
+    void setCastleMove();
     
     // Getters
     bool isMovable() const;
@@ -41,7 +43,9 @@ public:
     bool isReachable() const;
     bool isProtectingKing() const;
     std::queue<int> getMoves() const;
-    
+    bool isAttackedFromDirection(direction dir) const;
+    bool isCastleMove() const;
+
 private:
     SDL_Point position_;
     Piece* piece_ = nullptr;
@@ -51,7 +55,10 @@ private:
     // State Variables
     bool reachable_ = false;
     bool protectsKing_ = false;
+    bool castleMove_ = false;
     direction protectDir;
+    std::bitset<4> attackDirection_;
+    
 
 };
 

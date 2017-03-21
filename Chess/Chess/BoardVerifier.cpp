@@ -90,7 +90,7 @@ BoardVerifier::verifyBoardState(std::vector<Cell> &board, int turn)
         }
 
     }
-
+    
     while (!kingBlockers_.empty()) {
         int pos = kingBlockers_.front();
         kingBlockers_.pop();
@@ -125,12 +125,13 @@ BoardVerifier::verifyBoardState(std::vector<Cell> &board, int turn)
         std::cout << "|\n";
     }
     std::cout << "+---+---+---+---+---+---+---+---+\n";
-    return STATE_NOTHING;
+    return state_;
 }
 
 std::queue<int>
 BoardVerifier::getPieceMoves(int index){ return board_[index].getMoves(); }
-
+bool
+BoardVerifier::isCastleMove(int index) const { return board_[index].isCastleMove();}
 
 // Private Functions
 void
@@ -141,14 +142,16 @@ BoardVerifier::pawnAreaOfEffect(int row, int col)
         int piecePos =(row)*boardSize  + col;
         int index = (row-1)*boardSize  + col;
         if( row-1 > 0){
-            if (!board_[piecePos].getPiece()->hasMoved() && board_[index - boardSize].getOwner()==0)
-                board_[piecePos].setMove(index-boardSize);
+            
             if( (col-1)>0 && board_[index-1].getOwner()==OPPONENT) // eat to the left
                 board_[piecePos].setMove(index-1);
             if( (col+1)<boardSize && board_[index+1].getOwner()==OPPONENT) // eat to the right
                 board_[piecePos].setMove(index+1);
-            if( board_[index].getOwner()==0) // move forward
+            if( board_[index].getOwner()==0){ // move forward
                 board_[piecePos].setMove(index);
+                if (!board_[piecePos].getPiece()->hasMoved() && board_[index - boardSize].getOwner()==0) // If forward is empty, verify if double if possible
+                    board_[piecePos].setMove(index-boardSize);
+            }
             if( (col-1)>0 && board_[index-1 + boardSize].getOwner()==OPPONENT && board_[index-1 + boardSize].getPassant(currentTurn)) // Passant to the left
                 board_[piecePos].setMove(index-1);
             if( (col+1)>0 && board_[index+1 + boardSize].getOwner()==OPPONENT && board_[index+1 + boardSize].getPassant(currentTurn)) // Passant to the right
@@ -188,7 +191,7 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                 board_[index].setReachable();
         }
         else{
-            if( piece->isControlled() && !isUserPiece){
+            if( piece->isControlled() && !isUserPiece){ // Enemy found user piece
                 if( blockingPieces==0) // hasnt met a piece in the way, set as reachable
                     board_[index].setReachable();
                 if( index == kingIndex_){ // Found king
@@ -196,8 +199,10 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                         board_[hitCell].setProtectsKing(CellVerifier::DIR_O);
                         kingBlockers_.push(hitCell);
                     }
-                    else
+                    else{
                         kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                        board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_E);
+                    }
                     blockingPieces=2;
                 }
                 else{ // Found something else, mark the positions
@@ -206,7 +211,7 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                 }
             }
             else{ // Found another enemy piece, stop looking
-                if( isUserPiece)
+                if( isUserPiece && !piece->isControlled())
                     board_[row*boardSize +col].setMove(index);
                 else
                     board_[index].setReachable();
@@ -235,8 +240,10 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                         board_[hitCell].setProtectsKing(CellVerifier::DIR_E);
                         kingBlockers_.push(hitCell);
                     }
-                    else
+                    else{
                         kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                        board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_E);
+                    }
                     blockingPieces=2;
                 }
                 else{ // Found something else, mark the positions
@@ -245,7 +252,7 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                 }
             }
             else{ // Found another enemy piece, stop looking
-                if( isUserPiece)
+                if( isUserPiece && !piece->isControlled())
                     board_[row*boardSize +col].setMove(index);
                 else
                     board_[index].setReachable();
@@ -274,8 +281,10 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                         board_[hitCell].setProtectsKing(CellVerifier::DIR_N);
                         kingBlockers_.push(hitCell);
                     }
-                    else
+                    else{
                         kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                        board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_N);
+                    }
                     blockingPieces=2;
                 }
                 else{ // Found something else, mark the positions
@@ -284,7 +293,7 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                 }
             }
             else{ // Found another enemy piece, stop looking
-                if( isUserPiece)
+                if( isUserPiece && !piece->isControlled())
                     board_[row*boardSize +col].setMove(index);
                 else
                     board_[index].setReachable();
@@ -313,8 +322,10 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                         board_[hitCell].setProtectsKing(CellVerifier::DIR_S);
                         kingBlockers_.push(hitCell);
                     }
-                    else
+                    else{
                         kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                        board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_N);
+                    }
                     blockingPieces=2;
                 }
                 else{ // Found something else, mark the positions
@@ -323,7 +334,7 @@ BoardVerifier::rookAreaOfEffect(int row, int col)
                 }
             }
             else{ // Found another enemy piece, stop looking
-                if( isUserPiece)
+                if( isUserPiece && !piece->isControlled())
                     board_[row*boardSize +col].setMove(index);
                 else
                     board_[index].setReachable();
@@ -391,8 +402,10 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                             board_[obstaclesIndex[0]].setProtectsKing(CellVerifier::DIR_NO);
                             kingBlockers_.push(obstaclesIndex[0]);
                         }
-                        else // else has as direct threat to the king
-                            kingThreats_.push( row*boardSize + col );
+                        else{
+                            kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                            board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_SE);
+                        }
                         validDirections.set(0);
                     }
                     if(obstaclesFound[0]==0){ // if first obtacle found, set it as edible
@@ -406,9 +419,13 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                     }else
                         validDirections.set(0); // Found second blocking piece, finish search here
                 }
-                else if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
-                    board_[row*boardSize + col].setMove((row+i)*boardSize + (col+i));
-                    validDirections.set(0);
+                else{ // User piece
+                    if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
+                        board_[row*boardSize + col].setMove((row+i)*boardSize + (col+i));
+                        validDirections.set(0);
+                    }
+                    else
+                        validDirections.set(0);
                 }
             }
         }
@@ -429,8 +446,10 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                             board_[obstaclesIndex[1]].setProtectsKing(CellVerifier::DIR_NE);
                             kingBlockers_.push(obstaclesIndex[1]);
                         }
-                        else // else has as direct threat to the king
-                            kingThreats_.push( row*boardSize + col );
+                        else{
+                            kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                            board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_SO);
+                        }
                         validDirections.set(1);
                     }
                     if(obstaclesFound[1]==0){ // if first obtacle found, set it as edible
@@ -444,9 +463,13 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                     }else
                         validDirections.set(1); // Found second blocking piece, finish search here
                 }
-                else if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
-                    board_[row*boardSize + col].setMove((row+i)*boardSize + (col-i));
-                    validDirections.set(1);
+                else{
+                    if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
+                        board_[row*boardSize + col].setMove((row+i)*boardSize + (col-i));
+                        validDirections.set(1);
+                    }
+                    else
+                        validDirections.set(1);
                 }
             }
         }
@@ -467,8 +490,10 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                             board_[obstaclesIndex[2]].setProtectsKing(CellVerifier::DIR_SO);
                             kingBlockers_.push(obstaclesIndex[2]);
                         }
-                        else // else has as direct threat to the king
-                            kingThreats_.push( row*boardSize + col );
+                        else{
+                            kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                            board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_NE);
+                        }
                         validDirections.set(2);
                     }
                     if(obstaclesFound[2]==0){ // if first obtacle found, set it as edible
@@ -482,9 +507,13 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                     }else
                         validDirections.set(2); // Found second blocking piece, finish search here
                 }
-                else if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
-                    board_[row*boardSize + col].setMove((row-i)*boardSize + (col+i));
-                    validDirections.set(2);
+                else{
+                    if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
+                        board_[row*boardSize + col].setMove((row-i)*boardSize + (col+i));
+                        validDirections.set(2);
+                    }
+                    else
+                        validDirections.set(2);
                 }
             }
         }
@@ -505,8 +534,10 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                             board_[obstaclesIndex[3]].setProtectsKing(CellVerifier::DIR_NO);
                             kingBlockers_.push(obstaclesIndex[3]);
                         }
-                        else // else has as direct threat to the king
-                            kingThreats_.push( row*boardSize + col );
+                        else{
+                            kingThreats_.push( row*boardSize + col ); // has direct LoS to king
+                            board_[kingIndex_].setAttackerDirection(CellVerifier::DIR_NO);
+                        }
                         validDirections.set(3);
                     }
                     if(obstaclesFound[3]==0){ // if first obtacle found, set it as edible
@@ -520,9 +551,13 @@ BoardVerifier::bishopAreaOfEffect(int row, int col)
                     }else
                         validDirections.set(3); // Found second blocking piece, finish search here
                 }
-                else if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
-                    board_[row*boardSize + col].setMove((row-i)*boardSize + (col-i));
-                    validDirections.set(3);
+                else{
+                    if( !piece->isControlled() && isUserPiece){ // If user piece found an enemy one
+                        board_[row*boardSize + col].setMove((row-i)*boardSize + (col-i));
+                        validDirections.set(3);
+                    }
+                    else
+                        validDirections.set(3);
                 }
             }
         }
@@ -543,8 +578,16 @@ BoardVerifier::kingAreaOfEffect(int row, int col)
             int index = y*boardSize + x;
             if( (x!=col || y!=row)){
                 if((piece = board_[index].getPiece())==nullptr){ // space is empty
-                    if (isUserPiece && !board_[index].isReachable()) // User king moving onto empty space that isn't reachable by enemy
-                        board_[row*boardSize + col].setMove(index);
+                    if (isUserPiece && !board_[index].isReachable()){ // User king moving onto empty space that isn't reachable by enemy
+                        if( x == col && !board_[row*boardSize + col].isAttackedFromDirection(CellVerifier::DIR_N))
+                            board_[row*boardSize + col].setMove(index);
+                        else if( y == row && !board_[row*boardSize + col].isAttackedFromDirection(CellVerifier::DIR_E))
+                            board_[row*boardSize + col].setMove(index);
+                        else if( ((y - row)/( x - col))<0 && !board_[row*boardSize + col].isAttackedFromDirection(CellVerifier::DIR_NE))
+                            board_[row*boardSize + col].setMove(index);
+                        else if( ((y - row)/( x - col))>0 && !board_[row*boardSize + col].isAttackedFromDirection(CellVerifier::DIR_SE))
+                            board_[row*boardSize + col].setMove(index);
+                    }
                     else if( !isUserPiece) // if enemy king, just set space as reachable
                         board_[index].setReachable();
                 }else{
@@ -556,12 +599,47 @@ BoardVerifier::kingAreaOfEffect(int row, int col)
             }
         }
     }
+    if( isUserPiece && !board_[kingIndex_].getPiece()->hasMoved())
+        verifyCastle();
+}
+
+void
+BoardVerifier::verifyCastle()
+{
+    bool isValidMove=true;
+    if( board_[(boardSize-1)*boardSize].getPiece()!=nullptr && !board_[(boardSize-1)*boardSize].getPiece()->hasMoved() ){
+        // Left Rook hasn't moved
+        for(int x=1; x<3; x++){
+            if(board_[(boardSize-1)*boardSize + x].getPiece()==nullptr && board_[(boardSize-1)*boardSize + x].isReachable())
+                isValidMove = false;
+        }
+        if( isValidMove){
+            board_[kingIndex_].setMove((boardSize-1)*boardSize + 2); // Set move for castle
+            board_[(boardSize-1)*boardSize + 2].setCastleMove();
+        }
+    }
+    
+    if( board_[boardSize*boardSize -1].getPiece()!=nullptr && !board_[boardSize*boardSize-1].getPiece()->hasMoved() ){
+        // Right Rook hasn't moved
+        for(int x=5; x<7; x++){
+            if( board_[(boardSize-1)*boardSize + x].getPiece()==nullptr && board_[(boardSize-1)*boardSize + x].isReachable())
+                isValidMove = false;
+        }
+        if( isValidMove){
+            board_[kingIndex_].setMove((boardSize-1)*boardSize + 6); // Set move for castle
+            board_[(boardSize-1)*boardSize + 6].setCastleMove();
+        }
+    }
+
 }
 
 bool
 BoardVerifier::verifyKingState()
 {
     state_ = STATE_NOTHING;
+    
+    kingAreaOfEffect(kingIndex_/boardSize, kingIndex_%boardSize);
+
     
     if( board_[kingIndex_].isReachable()){
         if( board_[kingIndex_].isMovable()){
@@ -732,3 +810,5 @@ BoardVerifier::UpdateUserPieceMoves()
     
     return validMoves;
 }
+
+

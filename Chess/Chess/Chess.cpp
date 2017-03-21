@@ -180,7 +180,8 @@ Handler Chess::handleEvent(SDL_Event *e)
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
                 
-                verifier_.verifyBoardState(board_,1);
+                if(verifier_.verifyBoardState(board_,1) == BoardVerifier::STATE_CHECKMATE)
+                    concludeGame(false);
 
                 
             }
@@ -189,13 +190,29 @@ Handler Chess::handleEvent(SDL_Event *e)
                 if( focusedPiece_->getType() == CellTexture::PIECE_PAWN && board_[(row*horizontalCellNo)+col].getPiece()==nullptr && focusedCell->getPosition().x != col){
                     board_[((row+1)*horizontalCellNo)+col].deletePiece();
                 }
+                if (focusedPiece_->getType() == CellTexture::PIECE_KING && verifier_.isCastleMove((row*horizontalCellNo)+col)) {
+                    Piece* rook;
+                    if( ((row*horizontalCellNo)+col) == (horizontalCellNo*horizontalCellNo -2)){
+                        // Right rook for castle
+                        rook = board_[(horizontalCellNo*horizontalCellNo -1)].getPiece();
+                        board_[(horizontalCellNo*horizontalCellNo -1)].setPiece(nullptr);
+                        board_[(row*horizontalCellNo)+col-1].setPiece(rook);
+                    }
+                    else{
+                        // Left rook for castle
+                        rook = board_[(horizontalCellNo*(horizontalCellNo-1))].getPiece();
+                        board_[(horizontalCellNo*(horizontalCellNo-1))].setPiece(nullptr);
+                        board_[(horizontalCellNo*(horizontalCellNo-1)) + 3].setPiece(rook);
+                    }
+                }
                 board_[(row*horizontalCellNo)+col].setPiece(focusedPiece_);
                 board_[(row*horizontalCellNo)+col].setLegalMove(false);
                 focusedCell->setPiece(nullptr);
                 focusedPiece_->setMoved();
                 logger(focusedCell->getPosition(), board_[(row*horizontalCellNo)+col].getPosition(), focusedPiece_->isControlled());
                 
-                verifier_.verifyBoardState(board_,1);
+                if(verifier_.verifyBoardState(board_,1)  == BoardVerifier::STATE_CHECKMATE)
+                    concludeGame(false);
 
             }
             if(focusedCell!=nullptr){
@@ -259,3 +276,13 @@ void Chess::logger(SDL_Point src, SDL_Point dest, bool isPlayer)
     }
     std::cout << "(" << dest.y << "," << dest.x << ") \n";
 }
+
+void
+Chess::concludeGame(bool wonGame)
+{
+    if(wonGame)
+        std::cout << "You won the game\n";
+    else
+        std::cout << "You lost the game\n";
+}
+
