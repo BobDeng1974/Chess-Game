@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7290E5291E82A104008F1B9F /* PeerCommunication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7290E5271E82A104008F1B9F /* PeerCommunication.cpp */; };
+		7290E5411E82A5AC008F1B9F /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7290E5401E82A5AC008F1B9F /* libboost_system.dylib */; };
 		72A915341E68919200D8E032 /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A915331E68919200D8E032 /* libcurl.4.dylib */; };
 		72A915371E689AAB00D8E032 /* HttpResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915351E689AAB00D8E032 /* HttpResponse.cpp */; };
 		72A9153B1E689C5600D8E032 /* Communication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72A915391E689C5600D8E032 /* Communication.cpp */; };
@@ -55,6 +57,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7290E5271E82A104008F1B9F /* PeerCommunication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PeerCommunication.cpp; path = Communication/PeerCommunication.cpp; sourceTree = "<group>"; };
+		7290E5281E82A104008F1B9F /* PeerCommunication.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PeerCommunication.hpp; path = Communication/PeerCommunication.hpp; sourceTree = "<group>"; };
+		7290E5401E82A5AC008F1B9F /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../../../../../usr/local/Cellar/boost/1.63.0/lib/libboost_system.dylib; sourceTree = "<group>"; };
 		72A915331E68919200D8E032 /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = ../../../../../../../usr/local/lib/libcurl.4.dylib; sourceTree = "<group>"; };
 		72A915351E689AAB00D8E032 /* HttpResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HttpResponse.cpp; path = Communication/HttpResponse.cpp; sourceTree = "<group>"; };
 		72A915361E689AAB00D8E032 /* HttpResponse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HttpResponse.hpp; path = Communication/HttpResponse.hpp; sourceTree = "<group>"; };
@@ -124,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7290E5411E82A5AC008F1B9F /* libboost_system.dylib in Frameworks */,
 				72A915341E68919200D8E032 /* libcurl.4.dylib in Frameworks */,
 				72BF1A2A1E659FEB006AF761 /* SDL2_image.framework in Frameworks */,
 				72BF1A2B1E659FEB006AF761 /* SDL2_mixer.framework in Frameworks */,
@@ -143,6 +149,8 @@
 				72A9153A1E689C5600D8E032 /* Communication.hpp */,
 				72A915351E689AAB00D8E032 /* HttpResponse.cpp */,
 				72A915361E689AAB00D8E032 /* HttpResponse.hpp */,
+				7290E5271E82A104008F1B9F /* PeerCommunication.cpp */,
+				7290E5281E82A104008F1B9F /* PeerCommunication.hpp */,
 			);
 			name = Communications;
 			sourceTree = "<group>";
@@ -218,6 +226,7 @@
 		72BF1A251E659FEB006AF761 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7290E5401E82A5AC008F1B9F /* libboost_system.dylib */,
 				72A915331E68919200D8E032 /* libcurl.4.dylib */,
 				72BF1A261E659FEB006AF761 /* SDL2_image.framework */,
 				72BF1A271E659FEB006AF761 /* SDL2_mixer.framework */,
@@ -380,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7290E5291E82A104008F1B9F /* PeerCommunication.cpp in Sources */,
 				72BF1A331E65A0FC006AF761 /* Font.cpp in Sources */,
 				72A915491E68DD8300D8E032 /* RectButton.cpp in Sources */,
 				72A9155F1E699D3700D8E032 /* CellTexture.cpp in Sources */,
@@ -510,7 +520,10 @@
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/boost/1.63.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -524,7 +537,10 @@
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/boost/1.63.0/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

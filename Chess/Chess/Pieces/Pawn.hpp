@@ -26,7 +26,7 @@ class Pawn : public Piece
         void setDoubleJumpTurn(int turn);
     
     private:
-        int didDouble_;   // if piece pawn has done a double step
+        int didDouble_=-1;   // if piece pawn has done a double step
 };
 
 

@@ -11,13 +11,12 @@
 Pawn::Pawn(bool isPlayerControlled) : Piece(isPlayerControlled)
 {
     this->type_ = CellTexture::PIECE_PAWN;
-    this->didDouble_ = false;
 }
 
 void Pawn::reset()
 {
     Piece::reset();
-    this->didDouble_ = false;
+    this->didDouble_ = -1;
 }
 
 int Pawn::getDoubleJumpTurn() const { return didDouble_; }
